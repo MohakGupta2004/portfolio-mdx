@@ -1,3 +1,4 @@
+import Experience from "@/components/experience";
 import Index from "@/components/index";
 
 export default function Home() {
@@ -5,6 +6,9 @@ export default function Home() {
     <div className="container">
       <div>
         <Index />
+      </div>
+      <div>
+        <Experience />
       </div>
     </div>
   );

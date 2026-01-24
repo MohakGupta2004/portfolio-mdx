@@ -1,10 +1,10 @@
-import { CircleDot, Dot, File, Send } from "lucide-react";
+import { Dot, File, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { TbBrandTypescript } from "react-icons/tb";
+
 import TechStackButton from "./ui/tech-button";
 import { Button } from "./ui/button";
-import { GrResume } from "react-icons/gr";
+
 import SocialLinks from "./social-links";
 
 const Index = () => {

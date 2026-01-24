@@ -19,7 +19,7 @@ const navigations = [
 ];
 const Header = () => {
   return (
-    <header className="flex justify-between items-center pt-5">
+    <header className="w-full mx-auto flex justify-between items-center pt-5">
       <div className="flex m-2 gap-3">
         <Image
           src={"/logo.jpg"}
@@ -30,7 +30,11 @@ const Header = () => {
         />
         <span className="pt-6">
           {navigations.map((n, idx) => (
-            <Link className="p-2" key={idx} href={n.route}>
+            <Link
+              className="p-2 dark:text-gray-200 text-slate-600"
+              key={idx}
+              href={n.route}
+            >
               {n.pathname}
             </Link>
           ))}

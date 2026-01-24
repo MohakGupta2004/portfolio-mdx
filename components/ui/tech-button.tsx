@@ -1,0 +1,37 @@
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+const TechStackButton = ({
+  href,
+  src,
+  alt,
+  children,
+}: {
+  src: string;
+  href: string;
+  alt: string;
+  children: string;
+}) => {
+  return (
+    <>
+      <span className="p-1">
+        <Link
+          className="inline underline decoration-dotted border p-1 rounded-lg text-gray-600 dark:text-gray-200 bg-white/30 shadow-inner dark:border-dashed dark:border-white"
+          href={href}
+          target="_blank"
+        >
+          <Image
+            src={src}
+            height={20}
+            width={20}
+            alt={alt}
+            className="inline pr-1"
+          />
+          {children}
+        </Link>
+      </span>
+    </>
+  );
+};
+
+export default TechStackButton;

@@ -1,8 +1,11 @@
-import { CircleDot, Dot } from "lucide-react";
+import { CircleDot, Dot, File, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TbBrandTypescript } from "react-icons/tb";
 import TechStackButton from "./ui/tech-button";
+import { Button } from "./ui/button";
+import { GrResume } from "react-icons/gr";
+import SocialLinks from "./social-links";
 
 const Index = () => {
   return (
@@ -22,7 +25,7 @@ const Index = () => {
           <h1 className="font-grotesk text-4xl font-bold">
             Hi, I'm Mohak! - A Full Stack Software Developer.
           </h1>
-          <h2 className="font-grotesk text-lg mt-2 text-gray-500">
+          <h2 className="font-grotesk gap-8 text-lg mt-2 text-gray-500">
             I build webapps & dapps using{" "}
             <TechStackButton
               href="https://typescriptlang.org"
@@ -91,10 +94,42 @@ const Index = () => {
                 alt="rust"
               >
                 Rust
-              </TechStackButton>{" "}<br/>
+              </TechStackButton>{" "}
+              <br />
               for low-level and systems programming.
             </div>
           </h2>
+          <div className="mt-3 flex gap-3">
+            <Button
+              asChild
+              className="p-4 bg-white-900 text-gray-600 border-2
+             border-gray-800/30
+             shadow-inner shadow-black/30
+             hover:bg-gray-800/10
+             dark:text-white
+              dark:bg-gray-400/30
+              dark:border-dashed
+              dark:border-gray-400             
+             "
+            >
+              <Link href={"/resume.pdf"} target="_blank">
+                <File />
+                Resume
+              </Link>
+            </Button>
+            <Button
+              asChild
+              className="p-2 text-gray-200 border-2 border-gray-800/30 dark:text-white dark:bg-secondary dark:hover:bg-gray-800/10"
+            >
+              <Link href={"/contact"}>
+                <Send className="inline" />
+                Get in touch
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <div>
+          <SocialLinks />
         </div>
       </div>
     </div>

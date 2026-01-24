@@ -16,7 +16,7 @@ const TechStackButton = ({
     <>
       <span className="p-1">
         <Link
-          className="inline underline decoration-dotted border p-1 rounded-lg text-gray-600 dark:text-gray-200 bg-white/30 shadow-inner dark:border-dashed dark:border-white"
+          className="inline underline decoration-dotted border border-gray-400 p-1 rounded-lg text-gray-600 border-dashed  dark:text-gray-200 bg-white/30 shadow-inner dark:border-dashed dark:border-white"
           href={href}
           target="_blank"
         >

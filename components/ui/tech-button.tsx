@@ -27,7 +27,7 @@ const TechStackButton = ({
             alt={alt}
             className="inline pr-1"
           />
-          {children}
+          <span className="text-sm font-bold">{children}</span>
         </Link>
       </span>
     </>

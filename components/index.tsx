@@ -18,15 +18,15 @@ const Index = () => {
           alt="logo"
           className="rounded-4xl"
         />
-        <Dot className="fixed top-58 ml-20 border dark:bg-gray-500 border-gray-400 bg-gray-200  rounded-4xl shadow-lg shadow-gray-800/20" />
+        <Dot className="absolute top-58 ml-20 border dark:bg-gray-500 border-gray-400 bg-gray-200  rounded-4xl shadow-lg shadow-gray-800/20" />
       </div>
-      <div className="mt-8">
+      <div className="mt-10 flex flex-col gap-4 wrap">
         <div>
           <h1 className="font-grotesk text-4xl font-bold">
             Hi, I'm Mohak! - A Full Stack Software Developer.
           </h1>
-          <h2 className="font-grotesk gap-8 text-lg mt-2 text-gray-500">
-            I build webapps & dapps using{" "}
+          <h2 className="font-grotesk gap-8 text-lg mt-2 text-gray-500 dark:text-gray-400">
+            I build webapps and dapps using{" "}
             <TechStackButton
               href="https://typescriptlang.org"
               src="/typescript.svg"
@@ -66,7 +66,7 @@ const Index = () => {
               Currently focusing on <span className="font-bold">UI</span> and{" "}
               <span className="font-bold">AI agent</span> development.
             </span>
-            <div className="mt-2 text-gray-500">
+            <div className="mt-2 text-gray-500 dark:text-gray-400">
               I also enjoy low-level work with{" "}
               <TechStackButton
                 href="https://en.wikipedia.org/wiki/C_(programming_language)"
@@ -95,8 +95,9 @@ const Index = () => {
               >
                 Rust
               </TechStackButton>{" "}
+              for low
               <br />
-              for low-level and systems programming.
+              level and systems programming.
             </div>
           </h2>
           <div className="mt-3 flex gap-3">

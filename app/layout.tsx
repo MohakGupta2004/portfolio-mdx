@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={grotesk.variable}>
-      <body className="w-full mx-auto max-w-2xl md:px-0">
+      <body className="w-full mx-auto max-w-3xl md:px-0">
         <Providers>
           <Header />
           <main className="glow">{children}</main>

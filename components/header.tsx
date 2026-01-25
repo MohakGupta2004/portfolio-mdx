@@ -19,7 +19,7 @@ const navigations = [
 ];
 const Header = () => {
   return (
-    <header className="w-full mx-auto flex justify-between items-center pt-5">
+    <header className="w-full mx-auto pb-2 flex sticky top-0 z-50 backdrop-blur-2xl justify-between items-center pt-5">
       <div className="flex m-2 gap-3">
         <Image
           src={"/logo.jpg"}

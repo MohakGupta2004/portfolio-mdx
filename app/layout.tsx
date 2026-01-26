@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="w-full ">
         <Providers>
           <Header />
-          <main className="glow mx-auto max-w-3xl md:px-0">{children}</main>
+          <main className="glow mx-auto max-w-3xl px-4 sm:px-6 md:px-8">{children}</main>
         </Providers>
       </body>
     </html>

@@ -123,8 +123,8 @@ const Projects = () => {
   return (
     <div className="mt-12">
       <h2 className="text-xs text-gray-500 dark:text-gray-400">Featured</h2>
-      <h1 className="text-3xl font-bold font-grotesk">Projects</h1>
-      <div className="grid grid-cols-1 gap-4 cursor-pointer md:grid-cols-2 sm:grid-cols-2 ">
+      <h1 className="text-2xl sm:text-3xl font-bold font-grotesk">Projects</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 cursor-pointer">
         {projects.map((project, index) => (
           <ProjectCard
             key={index}

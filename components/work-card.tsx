@@ -36,31 +36,31 @@ const WorkCard = ({
   return (
     <details className="mt-5 group" open={open}>
       <summary className="list-none cursor-pointer">
-        <div className="flex justify-between">
-          <div className="flex gap-5">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-0">
+          <div className="flex gap-3 sm:gap-5">
             <Image
               src={src}
               height={20}
               width={50}
               alt={alt}
-              className="rounded-lg"
+              className="rounded-lg w-12 h-12 sm:w-14 sm:h-14 object-cover flex-shrink-0"
             />
 
-            <div>
-              <h1 className="text-lg font-bold flex items-center gap-1">
-                {companyName}{" "}
+            <div className="flex-1 min-w-0">
+              <h1 className="text-base sm:text-lg font-bold flex items-center gap-1 flex-wrap">
+                <span className="truncate">{companyName}</span>
                 <Link href={href} target="_blank" rel="noopener noreferrer">
-                  <IconLink className="text-gray-500 h-4 w-4" />
+                  <IconLink className="text-gray-500 h-4 w-4 flex-shrink-0" />
                 </Link>
-                <FaAngleDown className="transition-transform group-open:rotate-180 text-gray-300" />
+                <FaAngleDown className="transition-transform group-open:rotate-180 text-gray-300 flex-shrink-0" />
               </h1>
-              <h2 className="text-xs text-gray-500 dark:text-gray-400">
+              <h2 className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                 {jobRole}
               </h2>
             </div>
           </div>
 
-          <div className="text-right text-sm text-gray-500 dark:text-gray-400 space-y-1">
+          <div className="text-left sm:text-right text-xs sm:text-sm text-gray-500 dark:text-gray-400 space-y-1 pl-15 sm:pl-0">
             <div>
               {startingDate} - {endingDate}
             </div>

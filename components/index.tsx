@@ -16,9 +16,9 @@ const Index = () => {
           height={100}
           width={100}
           alt="logo"
-          className="rounded-4xl w-20 h-20 sm:w-24 sm:h-24 md:w-[100px] md:h-[100px]"
+          className="rounded-4xl w-20 h-20 sm:w-24 sm:h-24 md:w-25 md:h-25"
         />
-        <Dot className="absolute top-16 left-16 sm:top-20 sm:left-20 md:top-28 md:left-28 border dark:bg-gray-500 border-gray-400 bg-gray-200 rounded-4xl shadow-lg shadow-gray-800/20" />
+        <Dot className="absolute top-16 left-16 sm:top-20 sm:left-20 md:top-20 md:left-20 lg:left-20 lg:top-20 border dark:bg-gray-500 border-gray-400 bg-gray-200 rounded-4xl shadow-lg shadow-gray-800/20" />
       </div>
       <div className="mt-8 sm:mt-10 flex flex-col gap-4">
         <div>
@@ -52,23 +52,25 @@ const Index = () => {
                 Next.JS
               </TechStackButton>
               <span>,</span>
-              <TechStackButton href="https://bun.com" src="/bunjs.svg" alt="bun">
+              <TechStackButton
+                href="https://bun.com"
+                src="/bunjs.svg"
+                alt="bun"
+              >
                 Bun
               </TechStackButton>
               <span>,</span>
-              <TechStackButton
-                href="https://postgresql.org"
-                src="/postgres.svg"
-                alt="postgres"
-              >
-                Postgresql
-              </TechStackButton>
-            </p>
-            <p>
+              <span>
+                <TechStackButton
+                  href="https://postgresql.org"
+                  src="/postgres.svg"
+                  alt="postgres"
+                >
+                  Postgresql
+                </TechStackButton>
+              </span>
               Currently focusing on <span className="font-bold">UI</span> and{" "}
               <span className="font-bold">AI agent</span> development.
-            </p>
-            <p className="flex flex-wrap items-center gap-x-1 gap-y-2">
               <span>I also enjoy low-level work with</span>
               <TechStackButton
                 href="https://en.wikipedia.org/wiki/C_(programming_language)"
@@ -133,7 +135,7 @@ const Index = () => {
           <SocialLinks />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 export default Index;

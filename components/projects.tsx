@@ -1,4 +1,6 @@
+import Link from "next/link";
 import ProjectCard from "./project-card";
+import { Button } from "./ui/button";
 
 const projects = [
   {
@@ -35,7 +37,7 @@ const projects = [
     src: "/launcht.png",
     alt: "Launcht",
     href: "https://launcht.vercel.app",
-    title: "Launcht - Solana Token Launchpad",
+    title: "Launcht - Solana Token Launchpad with Metadata Configurator",
     description:
       "A decentralized platform to launch Solana tokens with ease and security. Configuring metadata and minting tokens made simple.",
     tools: [
@@ -136,6 +138,14 @@ const Projects = () => {
             href={project.href}
           />
         ))}
+      </div>
+      <div className="flex justify-center items-center m-6">
+        <Link
+          href="/projects"
+          className="px-6 py-2 text-sm font-grotesk font-bold text-gray-700 rounded-lg bg-card border dark:border-gray-700 hover:border-gray-500 hover:bg-card dark:text-white shadow-inner"
+        >
+          Show all projects
+        </Link>
       </div>
     </div>
   );

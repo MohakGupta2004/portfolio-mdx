@@ -29,7 +29,7 @@ const ProjectCard = ({
   }>;
 }) => {
   return (
-    <Card className="relative h-full rounded-2xl w-full pt-0 overflow-hidden">
+    <Card className="relative h-full rounded-2xl w-full pt-0 overflow-hidden shadow-inner hover:border-gray-500">
       <div className="absolute inset-0 z-30 aspect-video" />
       <Image
         src={src}
@@ -58,7 +58,7 @@ const ProjectCard = ({
               alt={tool.alt}
               height={20}
               width={20}
-              className="mr-2"
+              className="mr-2 fill-white"
             />
           ))}
         </div>

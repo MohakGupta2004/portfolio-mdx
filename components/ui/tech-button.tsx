@@ -14,7 +14,7 @@ const TechStackButton = ({
 }) => {
   return (
     <>
-      <span className="p-1 mb-2 cursor-pointer">
+      <span className="p-1 cursor-pointer">
         <Link
           className="underline decoration-dotted border border-gray-400 p-1 rounded-lg text-gray-600 border-dashed  dark:text-gray-200 bg-white/30 shadow-inner dark:border-dashed dark:border-white"
           href={href}

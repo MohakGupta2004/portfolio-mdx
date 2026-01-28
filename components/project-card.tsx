@@ -36,7 +36,7 @@ const ProjectCard = ({
         height={400}
         width={400}
         alt={alt}
-        className="relative z-20 aspect-video w-full object-cover brightness-60"
+        className="relative z-20 aspect-video w-full object-cover brightness-100"
       />
       <CardHeader className="grid grid-cols-1 gap-2">
         <CardAction>

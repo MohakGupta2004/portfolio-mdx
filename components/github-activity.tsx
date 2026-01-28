@@ -33,7 +33,7 @@ const GitHubActivity = ({
           {totalContributions}
         </span>
       </p>
-      <div className="flex overflow-x-auto m-3 border border-black/30 dark:border-white/30 p-4 rounded-lg">
+      <div className="flex flex-wrap overflow-x-auto m-3 border border-black/30 dark:border-white/30 p-4 rounded-lg">
         {weeks.map((week, weekIdx) => (
           <div key={weekIdx} className="flex flex-col">
             {week.contributionDays.map((day, dayIdx) => (

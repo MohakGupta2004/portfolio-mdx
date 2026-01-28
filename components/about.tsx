@@ -70,7 +70,7 @@ const About = () => {
                 Skills
               </p>
               <div>
-                <div className="flex text-sm font-grotesk font-bold">
+                <div className="flex flex-wrap text-sm font-grotesk font-bold">
                   {tools.map((tool, idx) => (
                     <Image
                       key={idx}

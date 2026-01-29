@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import { Hanken_Grotesk } from "next/font/google";
 import { Playwrite_NG_Modern } from "next/font/google";
+import Footer from "@/components/footer";
 const grotesk = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-grotesk",
@@ -18,7 +19,10 @@ export default function RootLayout({
       <body className="w-full ">
         <Providers>
           <Header />
-          <main className="glow mx-auto max-w-3xl px-4 sm:px-6 md:px-8">{children}</main>
+          <main className="glow mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
+            {children}
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>

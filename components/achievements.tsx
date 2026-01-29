@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { title } from "process";
 const achievements = [
   {
     src: "/sih.png",

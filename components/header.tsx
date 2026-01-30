@@ -16,7 +16,7 @@ const navigations = [
   },
   {
     pathname: "Blogs",
-    route: "/blog",
+    route: "/blogs",
   },
 ];
 
@@ -28,13 +28,15 @@ const Header = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <Image
-            src={"/logo.jpg"}
-            height={40}
-            width={40}
-            alt="logo"
-            className="rounded-sm border dark:border-amber-50 border-black w-8 h-8 sm:w-10 sm:h-10"
-          />
+          <Link href="/">
+            <Image
+              src={"/logo.jpg"}
+              height={40}
+              width={40}
+              alt="logo"
+              className="rounded-sm border dark:border-amber-50 border-black w-8 h-8 sm:w-10 sm:h-10 cursor-pointer"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-1">

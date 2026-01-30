@@ -47,7 +47,7 @@ const Header = () => {
                 href={n.route}
               >
                 {n.pathname}
-                <div className="bg-gray-500 dark:bg-gray-400 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                <div className="bg-gray-500 dark:bg-gray-400 h-0.5 w-0 group-hover:w-full transition-all duration-500"></div>
               </Link>
             ))}
           </nav>

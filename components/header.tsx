@@ -42,7 +42,7 @@ const Header = () => {
           <nav className="hidden md:flex gap-1">
             {navigations.map((n, idx) => (
               <Link
-                className="px-3 py-2 dark:text-gray-400 text-gray-800 group hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-3 py-2 dark:text-gray-200 text-gray-900 group hover:text-slate-900 dark:hover:text-white transition-colors"
                 key={idx}
                 href={n.route}
               >

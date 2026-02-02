@@ -27,16 +27,18 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AnimationWrapper from "./animation/animation-wrapper";
+import { AnimationH1 } from "./animation/animation-h1";
 
 const ConnectWithMe = () => {
   const [selectedRoles, setSelectedRoles] = useState<string>();
   const [inquiryType, setInquiryType] = useState<string>();
   return (
-    <section id="connect-with-me" className="my-12 px-4">
+    <AnimationWrapper>
       <div className="w-full h-80 shadow-inner dark:shadow-white/10 border rounded-2xl text-center flex flex-col gap-6 justify-center items-center">
-        <h1 className="text-gray-500 dark:text-gray-400 font-grotesk font-bold">
+        <AnimationH1>
           Scrolled so far?
-        </h1>
+        </AnimationH1>
         <Dialog>
           {" "}
           <DialogTrigger asChild>
@@ -139,7 +141,7 @@ const ConnectWithMe = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </section>
+    </AnimationWrapper>
   );
 };
 

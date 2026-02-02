@@ -1,7 +1,7 @@
+"use client";
 import Link from "next/link";
 import ProjectCard from "./project-card";
-import { Button } from "./ui/button";
-
+import AnimationWrapper from "./animation/animation-wrapper";
 const projects = [
   {
     src: "/chainwork.png",
@@ -123,7 +123,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="mt-12">
+    <AnimationWrapper>
       <h2 className="text-xs text-gray-500 dark:text-gray-400">Featured</h2>
       <h1 className="text-2xl sm:text-3xl font-bold font-grotesk">Projects</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 cursor-pointer">
@@ -147,7 +147,7 @@ const Projects = () => {
           Show all projects
         </Link>
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 export default Projects;

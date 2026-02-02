@@ -1,3 +1,4 @@
+import AnimationWrapper from "./animation/animation-wrapper";
 import GithubActivity from "./github-activity";
 
 const GithubStats = async () => {
@@ -34,7 +35,7 @@ const GithubStats = async () => {
   const data = await result.json();
   console.log(data);
   return (
-    <div className="flex my-10">
+    <AnimationWrapper>
       <div>
         <h2 className="text-xs text-gray-600 dark:text-gray-500">Featured</h2>
         <h1 className="text-2xl font-grotesk font-bold text-gray-800 dark:text-gray-300">
@@ -50,7 +51,7 @@ const GithubStats = async () => {
           }
         />
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 export default GithubStats;

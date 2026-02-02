@@ -1,4 +1,6 @@
+"use client";
 import BlogCard from "@/components/blog-card";
+import { motion } from "framer-motion";
 
 const Blogs = () => {
   const blogs = [
@@ -16,7 +18,12 @@ const Blogs = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1, duration: 0.2 }}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-6"
+    >
       <div className="col-span-1 md:col-span-2 lg:col-span-2">
         <h1 className="font-grotesk font-bold text-center text-3xl">Blogs</h1>
         <h2 className="font-grotesk text-gray-500 text-center text-lg">
@@ -27,7 +34,7 @@ const Blogs = () => {
       {blogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
-    </div>
+    </motion.div>
   );
 };
 export default Blogs;

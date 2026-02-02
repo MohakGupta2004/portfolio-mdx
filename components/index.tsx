@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { Dot, File, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,15 +7,12 @@ import TechStackButton from "./ui/tech-button";
 import { Button } from "./ui/button";
 
 import SocialLinks from "./social-links";
+import AnimationWrapper from "./animation/animation-wrapper";
+import { AnimationH1 } from "./animation/animation-h1";
 
 const Index = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
-      className="mt-8 sm:mt-12 md:mt-16"
-    >
+    <AnimationWrapper>
       <div className="relative">
         <Image
           src={"/logo.jpg"}
@@ -30,20 +26,10 @@ const Index = () => {
       </div>
       <div className="mt-8 sm:mt-10 flex flex-col gap-4">
         <div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.2 }}
-            className="font-grotesk text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"
-          >
+          <AnimationH1>
             Hi, I'm Mohak! - A Full Stack Software Developer.
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="font-grotesk text-base sm:text-lg mt-2 text-gray-500 dark:text-gray-400 space-y-3"
-          >
+          </AnimationH1>
+          <AnimationWrapper>
             <p className="flex flex-wrap items-center gap-x-1 gap-y-2">
               <span>I build webapps and dapps using</span>
               <TechStackButton
@@ -119,16 +105,12 @@ const Index = () => {
               </TechStackButton>
               <span>for low-level and systems programming.</span>
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-4 flex flex-col sm:flex-row gap-3"
-          >
-            <Button
-              asChild
-              className="p-4 bg-white-900 text-gray-600 border-2
+          </AnimationWrapper>
+          <AnimationWrapper>
+            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+              <Button
+                asChild
+                className="p-4 bg-white-900 text-gray-600 border-2
              border-gray-800/30
              shadow-inner shadow-black/30
              hover:bg-gray-800/10
@@ -137,32 +119,29 @@ const Index = () => {
               dark:border-dashed
               dark:border-gray-400             
              "
-            >
-              <Link href={"/resume.pdf"} target="_blank">
-                <File />
-                Resume
-              </Link>
-            </Button>
-            <Button
-              asChild
-              className="p-2 text-gray-200 border-2 border-gray-800/30 dark:text-white dark:bg-secondary dark:hover:bg-gray-800/10"
-            >
-              <Link href={"/contact"}>
-                <Send className="inline" />
-                Get in touch
-              </Link>
-            </Button>
-          </motion.div>
+              >
+                <Link href={"/resume.pdf"} target="_blank">
+                  <File />
+                  Resume
+                </Link>
+              </Button>
+              <Button
+                asChild
+                className="p-2 text-gray-200 border-2 border-gray-800/30 dark:text-white dark:bg-secondary dark:hover:bg-gray-800/10"
+              >
+                <Link href={"/contact"}>
+                  <Send className="inline" />
+                  Get in touch
+                </Link>
+              </Button>
+            </div>
+          </AnimationWrapper>
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
+        <AnimationWrapper>
           <SocialLinks />
-        </motion.div>
+        </AnimationWrapper>
       </div>
-    </motion.div>
+    </AnimationWrapper>
   );
 };
 export default Index;

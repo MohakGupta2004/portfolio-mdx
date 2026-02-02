@@ -3,6 +3,9 @@ import { CardAction } from "./ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { AnimationH2 } from "./animation/animation-h2";
+import { AnimationH1 } from "./animation/animation-h1";
+import AnimationWrapper from "./animation/animation-wrapper";
 const certificates = [
   {
     src: "/linkedin.svg",
@@ -43,12 +46,12 @@ const certificates = [
 ];
 const Certificates = () => {
   return (
-    <section className="mt-12">
+    <AnimationWrapper>
       <div>
-        <h2 className="text-xs text-gray-600 dark:text-gray-500">Featured</h2>
-        <h1 className="text-2xl font-grotesk font-bold text-gray-800 dark:text-gray-300">
+        <AnimationH2>Featured</AnimationH2>
+        <AnimationH1>
           Certificates
-        </h1>
+        </AnimationH1>
       </div>
       <div>
         {certificates.map((certificates, index) => (
@@ -89,7 +92,7 @@ const Certificates = () => {
           </div>
         ))}
       </div>
-    </section>
+    </AnimationWrapper>
   );
 };
 

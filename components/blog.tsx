@@ -1,5 +1,8 @@
 import Link from "next/link";
 import BlogCard from "./blog-card";
+import AnimationWrapper from "./animation/animation-wrapper";
+import { AnimationH2 } from "./animation/animation-h2";
+import { AnimationH1 } from "./animation/animation-h1";
 
 const Blog = () => {
   const blogs = [
@@ -17,10 +20,10 @@ const Blog = () => {
   ];
 
   return (
-    <div>
+    <AnimationWrapper>
       <div>
-        <h2 className="text-xs text-gray-500">Featured</h2>
-        <h1 className="text-3xl font-bold">Blogs</h1>
+        <AnimationH2>Featured</AnimationH2>
+        <AnimationH1>Blogs</AnimationH1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-6">
         {blogs.map((blog) => (
@@ -35,7 +38,7 @@ const Blog = () => {
           See all blogs
         </Link>
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 export default Blog;

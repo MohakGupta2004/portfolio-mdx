@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ProjectCard from "./project-card";
 import { Button } from "./ui/button";
+import AnimationWrapper from "./animation/animation-wrapper";
 
 const projects = [
   {
@@ -76,7 +77,7 @@ const projects = [
 
 const WorkProjects = () => {
   return (
-    <div className="mt-12">
+    <AnimationWrapper>
       <h2 className="text-xs text-gray-500 dark:text-gray-400">Featured</h2>
       <h1 className="text-2xl sm:text-3xl font-bold font-grotesk">
         Proof of Works
@@ -102,7 +103,7 @@ const WorkProjects = () => {
           Show more works
         </Link>
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 export default WorkProjects;

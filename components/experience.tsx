@@ -1,6 +1,8 @@
-import { endianness } from "os";
+"use client";
+import AnimationWrapper from "./animation/animation-wrapper";
 import WorkCard from "./work-card";
-
+import { AnimationH2 } from "./animation/animation-h2";
+import { AnimationH1 } from "./animation/animation-h1";
 const experiences = [
   {
     src: "/realtygenielogo.png",
@@ -155,18 +157,22 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <div className="mt-12">
-      <div>
-        <h2 className="text-xs text-gray-500">Featured</h2>
-        <h1 className="text-3xl font-bold">Experience</h1>
-      </div>
+    <AnimationWrapper>
+      <div className="mt-12">
+        <div>
+          <AnimationH2>Featured</AnimationH2>
+          <AnimationH1>Experience</AnimationH1>
+        </div>
 
-      <div className="mt-6 space-y-4">
-        {experiences.map((exp, idx) => (
-          <WorkCard key={idx} {...exp} />
-        ))}
+        <AnimationWrapper>
+          <div className="mt-6 space-y-4">
+            {experiences.map((exp, idx) => (
+              <WorkCard key={idx} {...exp} />
+            ))}
+          </div>
+        </AnimationWrapper>
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 

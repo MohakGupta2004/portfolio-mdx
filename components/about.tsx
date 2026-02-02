@@ -1,4 +1,7 @@
 import Image from "next/image";
+import AnimationWrapper from "./animation/animation-wrapper";
+import { AnimationH2 } from "./animation/animation-h2";
+import { AnimationH1 } from "./animation/animation-h1";
 const tools = [
   {
     src: "/nextjs.svg",
@@ -35,12 +38,10 @@ const tools = [
 ];
 const About = () => {
   return (
-    <div>
+    <AnimationWrapper>
       <div>
-        <h2 className="text-xs text-gray-600 dark:text-gray-500">About</h2>
-        <h1 className="text-2xl font-grotesk font-bold text-gray-800 dark:text-gray-300">
-          Me
-        </h1>
+        <AnimationH2>About</AnimationH2>
+        <AnimationH1>Me</AnimationH1>
       </div>
       <div>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -52,9 +53,7 @@ const About = () => {
             className="rounded-xl mt-4"
           />
           <div className="mt-6">
-            <div className="text-black dark:text-white font-bold font-grotesk text-2xl">
-              Mohak Gupta
-            </div>
+            <AnimationH1>Mohak Gupta</AnimationH1>
             <div>
               <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm">
                 I'm Mohak Gupta, a passionate Full Stack Software Developer with
@@ -87,7 +86,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AnimationWrapper>
   );
 };
 export default About;

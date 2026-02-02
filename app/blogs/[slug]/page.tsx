@@ -15,8 +15,4 @@ export default async function Page({
   );
 }
 
-export function generateStaticParams() {
-  return [{ slug: "hello-world" }];
-}
-
 export const dynamicParams = false;

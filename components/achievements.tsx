@@ -1,4 +1,7 @@
 import Image from "next/image";
+import AnimationWrapper from "./animation/animation-wrapper";
+import { AnimationH2 } from "./animation/animation-h2";
+import { AnimationH1 } from "./animation/animation-h1";
 const achievements = [
   {
     src: "/sih.png",
@@ -17,12 +20,12 @@ const achievements = [
 ];
 const Achievements = () => {
   return (
-    <section className="mt-3">
+    <AnimationWrapper>
       <div>
-        <h2 className="text-xs text-gray-600 dark:text-gray-500">Featured</h2>
-        <h1 className="text-2xl font-grotesk font-bold text-gray-800 dark:text-gray-300">
+        <AnimationH2>Featured</AnimationH2>
+        <AnimationH1>
           Achievements
-        </h1>
+        </AnimationH1>
       </div>
       <div>
         {achievements.map((achievement, index) => (
@@ -52,7 +55,7 @@ const Achievements = () => {
           </div>
         ))}
       </div>
-    </section>
+    </AnimationWrapper>
   );
 };
 

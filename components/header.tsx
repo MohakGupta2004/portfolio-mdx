@@ -4,6 +4,7 @@ import ThemeSwitch from "./theme-switch";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import AnimationWrapper from "./animation/animation-wrapper";
 
 const navigations = [
   {
@@ -27,30 +28,32 @@ const Header = () => {
     <header className="container mx-auto max-w-4xl px-4 sm:px-6 md:px-16 sticky top-0 z-50 rounded-3xl py-4 backdrop-blur-sm">
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 ">
           <Link href="/">
             <Image
               src={"/logo.jpg"}
               height={40}
               width={40}
               alt="logo"
-              className="rounded-sm border dark:border-amber-50 border-black w-8 h-8 sm:w-10 sm:h-10 cursor-pointer"
+              className="rounded-sm border dark:border-amber-50 border-black w-8 h-8 sm:w-10 sm:h-10 cursor-pointer hover:scale-90 "
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-1">
-            {navigations.map((n, idx) => (
-              <Link
-                className="px-3 py-2 dark:text-gray-200 text-gray-900 group hover:text-slate-900 dark:hover:text-white transition-colors"
-                key={idx}
-                href={n.route}
-              >
-                {n.pathname}
-                <div className="bg-gray-500 dark:bg-gray-400 h-0.5 w-0 group-hover:w-full transition-all duration-500"></div>
-              </Link>
-            ))}
-          </nav>
+          <AnimationWrapper>
+            <nav className="hidden md:flex gap-1">
+              {navigations.map((n, idx) => (
+                <Link
+                  className="px-3 py-2 dark:text-gray-200 text-gray-900 group hover:text-slate-900 dark:hover:text-white transition-colors"
+                  key={idx}
+                  href={n.route}
+                >
+                  {n.pathname}
+                  <div className="bg-gray-500 dark:bg-gray-400 h-0.5 w-0 group-hover:w-full transition-all duration-500"></div>
+                </Link>
+              ))}
+            </nav>
+          </AnimationWrapper>
         </div>
 
         {/* Right side - Theme Switch + Mobile Menu Button */}

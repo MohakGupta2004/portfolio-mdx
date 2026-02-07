@@ -1,18 +1,52 @@
 "use client";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
-const AnimationWrapper: React.FC<{ children: React.ReactNode }> = ({
+interface AnimationWrapperProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}
+
+const AnimationWrapper: React.FC<AnimationWrapperProps> = ({
   children,
+  className = "",
+  delay = 0,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Add small delay for staggered effect
+          setTimeout(() => setIsVisible(true), delay);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1, duration: 0.2 }}
-      className="mt-9"
+    <div
+      ref={ref}
+      className={cn(
+        "transition-all duration-300 ease-out will-change-[opacity,transform]",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+        className
+      )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
+
 export default AnimationWrapper;

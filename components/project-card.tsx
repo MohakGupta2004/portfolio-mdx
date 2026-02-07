@@ -1,24 +1,8 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import AnimationWrapper from "./animation/animation-wrapper";
-const ProjectCard = ({
-  src,
-  alt,
-  title,
-  description,
-  tools,
-  href,
-}: {
+
+interface ProjectCardProps {
   src: string;
   alt: string;
   title: string;
@@ -28,50 +12,68 @@ const ProjectCard = ({
     src: string;
     alt: string;
   }>;
-}) => {
+}
+
+const ProjectCard = ({
+  src,
+  alt,
+  title,
+  description,
+  tools,
+  href,
+}: ProjectCardProps) => {
   return (
-    <AnimationWrapper>
-      <Card className="relative h-full rounded-2xl w-full pt-0 overflow-hidden shadow-inner hover:border-gray-500">
-        <div className="absolute inset-0 z-30 aspect-video" />
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block h-full border border-border/50 rounded-lg overflow-hidden bg-card/30 hover:border-primary transition-colors duration-200"
+    >
+      {/* Project Image */}
+      <div className="relative aspect-video overflow-hidden bg-secondary/30">
         <Image
           src={src}
-          height={400}
+          height={200}
           width={400}
           alt={alt}
-          className="relative z-20 aspect-video w-full object-cover brightness-100"
+          className="w-full h-full object-cover"
         />
-        <CardHeader className="grid grid-cols-1 gap-2">
-          <CardAction>
-            <Badge variant="secondary">Featured</Badge>
-          </CardAction>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>
-            {description.length > 100
-              ? description.substring(0, 100) + "..."
-              : description}
-          </CardDescription>
-          <div className="font-grotesk font-bold text-sm">Technologies</div>
-          <br />
-          <div className="flex text-sm font-grotesk font-bold">
-            {tools.map((tool, idx) => (
-              <Image
-                key={idx}
-                src={tool.src}
-                alt={tool.alt}
-                height={20}
-                width={20}
-                className="mr-2 fill-white"
-              />
-            ))}
-          </div>
-          <Link href={href}>
-            <Badge variant="secondary">
-              View Details <ArrowRight />
-            </Badge>
-          </Link>
-        </CardHeader>
-      </Card>
-    </AnimationWrapper>
+      </div>
+
+      {/* Content */}
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+            {title}
+          </h3>
+          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
+        </div>
+
+        <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+          {description}
+        </p>
+
+        {/* Tech Icons */}
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/30">
+          {tools.slice(0, 5).map((tool, idx) => (
+            <Image
+              key={idx}
+              src={tool.src}
+              alt={tool.alt}
+              height={16}
+              width={16}
+              className="opacity-60 group-hover:opacity-100 transition-opacity"
+              title={tool.alt}
+            />
+          ))}
+          {tools.length > 5 && (
+            <span className="text-xs text-muted-foreground">
+              +{tools.length - 5}
+            </span>
+          )}
+        </div>
+      </div>
+    </Link>
   );
 };
 

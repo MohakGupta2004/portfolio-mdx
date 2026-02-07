@@ -9,19 +9,31 @@ import Index from "@/components/index";
 import Projects from "@/components/projects";
 import Quotes from "@/components/quotes";
 import WorkProjects from "@/components/work-projects";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+
 export default function Home() {
   return (
-    <div>
+    <div className="mx-auto md:max-w-3xl *:[[id]]:scroll-mt-22">
       <Index />
+      <Separator />
       <Experience />
-      <Projects />
-      <About />
-      <GithubStats />
+      <Separator />
       <WorkProjects />
+      <Separator />
+      <Projects />
+      <Separator />
+      <GithubStats />
+      <Separator />
       <Blog />
-      <ConnectWithMe />
+      <Separator />
       <Achievements />
+      <Separator />
       <Certificates />
+      <Separator />
+      <About />
+      <Separator />
+      <ConnectWithMe />
+      <Separator />
       <Quotes />
     </div>
   );

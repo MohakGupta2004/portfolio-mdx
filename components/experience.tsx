@@ -1,8 +1,11 @@
 "use client";
+import { useState } from "react";
 import AnimationWrapper from "./animation/animation-wrapper";
 import WorkCard from "./work-card";
 import { AnimationH2 } from "./animation/animation-h2";
 import { AnimationH1 } from "./animation/animation-h1";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
 const experiences = [
   {
     src: "/realtygenielogo.png",
@@ -70,6 +73,7 @@ const experiences = [
     ],
     open: true,
     href: "https://realtygenie.co",
+    isCurrent: true,
   },
   {
     src: "/gdg.jpg",
@@ -111,6 +115,7 @@ const experiences = [
     ],
     open: false,
     href: "https://gdg.community.dev/gdg-on-campus-techno-india-university/",
+    isCurrent: false,
   },
   {
     src: "/gdg.jpg",
@@ -152,27 +157,59 @@ const experiences = [
     ],
     open: false,
     href: "https://gdg.community.dev/gdg-on-campus-techno-india-university/",
+    isCurrent: false,
   },
 ];
 
 const Experience = () => {
-  return (
-    <AnimationWrapper>
-      <div className="mt-12">
-        <div>
-          <AnimationH2>Featured</AnimationH2>
-          <AnimationH1>Experience</AnimationH1>
-        </div>
+  const [showPrevious, setShowPrevious] = useState(false);
+  const currentExp = experiences.filter((exp) => exp.isCurrent);
+  const previousExp = experiences.filter((exp) => !exp.isCurrent);
 
-        <AnimationWrapper>
-          <div className="mt-6 space-y-4">
-            {experiences.map((exp, idx) => (
+  return (
+    <section className="mt-16">
+      <AnimationWrapper>
+        <AnimationH2>Featured</AnimationH2>
+        <AnimationH1>Currently</AnimationH1>
+      </AnimationWrapper>
+
+      {/* Current Experience */}
+      <AnimationWrapper delay={50}>
+        <div className="mt-6 space-y-4">
+          {currentExp.map((exp, idx) => (
+            <WorkCard key={idx} {...exp} />
+          ))}
+        </div>
+      </AnimationWrapper>
+
+      {/* Previous Roles Toggle */}
+      <AnimationWrapper delay={100}>
+        <button
+          onClick={() => setShowPrevious(!showPrevious)}
+          className="mt-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
+        >
+          {showPrevious ? (
+            <ChevronUp className="w-4 h-4" />
+          ) : (
+            <ChevronDown className="w-4 h-4" />
+          )}
+          <span className="group-hover:underline underline-offset-4">
+            {showPrevious ? "Hide" : "Show"} Previous Roles
+          </span>
+        </button>
+      </AnimationWrapper>
+
+      {/* Previous Experience */}
+      {showPrevious && (
+        <AnimationWrapper delay={0}>
+          <div className="mt-4 space-y-4 border-l-2 border-border/50 pl-4 ml-2">
+            {previousExp.map((exp, idx) => (
               <WorkCard key={idx} {...exp} />
             ))}
           </div>
         </AnimationWrapper>
-      </div>
-    </AnimationWrapper>
+      )}
+    </section>
   );
 };
 

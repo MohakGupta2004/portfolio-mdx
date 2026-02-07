@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
+import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
 
@@ -15,34 +16,30 @@ export const AnimatedThemeToggler = ({
   duration = 400,
   ...props
 }: AnimatedThemeTogglerProps) => {
-  const [isDark, setIsDark] = useState(false)
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const updateTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"))
-    }
-
-    updateTheme()
-
-    const observer = new MutationObserver(updateTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    })
-
-    return () => observer.disconnect()
+    setMounted(true)
   }, [])
+
+  const isDark = resolvedTheme === "dark"
 
   const toggleTheme = useCallback(async () => {
     if (!buttonRef.current) return
 
+    const newTheme = isDark ? "light" : "dark"
+
+    // Check if view transitions are supported
+    if (!document.startViewTransition) {
+      setTheme(newTheme)
+      return
+    }
+
     await document.startViewTransition(() => {
       flushSync(() => {
-        const newTheme = !isDark
-        setIsDark(newTheme)
-        document.documentElement.classList.toggle("dark")
-        localStorage.setItem("theme", newTheme ? "dark" : "light")
+        setTheme(newTheme)
       })
     }).ready
 
@@ -68,16 +65,34 @@ export const AnimatedThemeToggler = ({
         pseudoElement: "::view-transition-new(root)",
       }
     )
-  }, [isDark, duration])
+  }, [isDark, duration, setTheme])
+
+  // Avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <button
+        ref={buttonRef}
+        className={cn("p-2 rounded-lg text-muted-foreground", className)}
+        disabled
+        {...props}
+      >
+        <Moon className="w-5 h-5" />
+        <span className="sr-only">Toggle theme</span>
+      </button>
+    )
+  }
 
   return (
     <button
       ref={buttonRef}
       onClick={toggleTheme}
-      className={cn(className)}
+      className={cn(
+        "p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all",
+        className
+      )}
       {...props}
     >
-      {isDark ? <Sun /> : <Moon />}
+      {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       <span className="sr-only">Toggle theme</span>
     </button>
   )

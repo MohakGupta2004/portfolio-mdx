@@ -5,7 +5,7 @@ import AnimationWrapper from "./animation/animation-wrapper";
 
 const projects = [
   {
-    src: "/chainwork.png",
+    src: "/callgenie.png",
     alt: "Callgenie",
     title:
       "Callgenie - AI Powered Phone Call Assistant With Call Scheduling Features",

@@ -123,6 +123,16 @@ const projects = [
 const Projects = () => {
   return (
     <div className="mt-12">
+      <div className="col-span-1 md:col-span-2 lg:col-span-2">
+        <h1 className="font-grotesk font-bold text-center text-3xl">
+          Projects
+        </h1>
+        <h2 className="font-grotesk text-gray-500 text-center text-lg">
+          A collection of my projects, showcasing my skills and expertise in
+          various
+        </h2>
+        <div className="border w-full mb-2 mt-4"></div>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 cursor-pointer">
         {projects.map((project, index) => (
           <ProjectCard

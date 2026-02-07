@@ -8,14 +8,14 @@ const Blog = () => {
   const blogs = [
     {
       id: 1,
-      title: "Getting Started with Next.js",
+      title: "Getting Started",
       description:
-        "Learn how to build fast and scalable web applications with Next.js framework and modern React patterns.",
+        "Starting to record my learnings, thoughts and ideas in the form of blogs. Stay tuned for more content on web development, AI, and much more.",
       date: "January 15, 2026",
-      category: "React",
-      readTime: "5 min read",
+      category: "motivation",
+      readTime: "1 min read",
       slug: "hello-world",
-      tags: ["Next.js", "React", "Web Development"],
+      tags: ["Motivation", "Personal"],
     },
   ];
 

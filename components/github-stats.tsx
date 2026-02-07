@@ -1,5 +1,7 @@
 import AnimationWrapper from "./animation/animation-wrapper";
 import GithubActivity from "./github-activity";
+import { AnimationH1 } from "./animation/animation-h1";
+import { AnimationH2 } from "./animation/animation-h2";
 
 const GithubStats = async () => {
   const result = await fetch("https://api.github.com/graphql", {
@@ -30,28 +32,32 @@ const GithubStats = async () => {
         userName: "MohakGupta2004",
       },
     }),
-    next: { revalidate: 86400 }, // cache for 24h (optional but great)
+    next: { revalidate: 86400 },
   });
   const data = await result.json();
-  console.log(data);
+
   return (
-    <AnimationWrapper>
-      <div>
-        <h2 className="text-xs text-gray-600 dark:text-gray-500">Featured</h2>
-        <h1 className="text-2xl font-grotesk font-bold text-gray-800 dark:text-gray-300">
-          Github Stats
-        </h1>
-        <GithubActivity
-          weeks={
-            data.data.user.contributionsCollection.contributionCalendar.weeks
-          }
-          totalContributions={
-            data.data.user.contributionsCollection.contributionCalendar
-              .totalContributions
-          }
-        />
-      </div>
-    </AnimationWrapper>
+    <section className="mt-16">
+      <AnimationWrapper>
+        <AnimationH2>Activity</AnimationH2>
+        <AnimationH1>GitHub Contributions</AnimationH1>
+      </AnimationWrapper>
+
+      <AnimationWrapper delay={50}>
+        <div className="mt-6 border border-border/50 rounded-lg bg-card/30 p-4 overflow-x-auto">
+          <GithubActivity
+            weeks={
+              data.data.user.contributionsCollection.contributionCalendar.weeks
+            }
+            totalContributions={
+              data.data.user.contributionsCollection.contributionCalendar
+                .totalContributions
+            }
+          />
+        </div>
+      </AnimationWrapper>
+    </section>
   );
 };
+
 export default GithubStats;

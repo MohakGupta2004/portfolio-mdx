@@ -2,91 +2,80 @@ import Image from "next/image";
 import AnimationWrapper from "./animation/animation-wrapper";
 import { AnimationH2 } from "./animation/animation-h2";
 import { AnimationH1 } from "./animation/animation-h1";
+
 const tools = [
-  {
-    src: "/nextjs.svg",
-    alt: "NextJS",
-  },
-  {
-    src: "/typescript.svg",
-    alt: "Typescript",
-  },
-  {
-    src: "/bunjs.svg",
-    alt: "BunJS",
-  },
-  {
-    src: "/react.svg",
-    alt: "React",
-  },
-  {
-    src: "/tailwind.svg",
-    alt: "TailwindCSS",
-  },
-  {
-    src: "/postgres.svg",
-    alt: "Postgresql",
-  },
-  {
-    src: "/mongodb.svg",
-    alt: "Mongodb",
-  },
-  {
-    src: "/openai.png",
-    alt: "OpenAI",
-  },
+  { src: "/nextjs.svg", alt: "Next.JS" },
+  { src: "/typescript.svg", alt: "TypeScript" },
+  { src: "/bunjs.svg", alt: "Bun" },
+  { src: "/react.svg", alt: "React" },
+  { src: "/tailwind.svg", alt: "TailwindCSS" },
+  { src: "/postgres.svg", alt: "PostgreSQL" },
+  { src: "/mongodb.svg", alt: "MongoDB" },
+  { src: "/openai.png", alt: "OpenAI" },
 ];
+
 const About = () => {
   return (
-    <AnimationWrapper>
-      <div>
+    <section className="mt-16">
+      <AnimationWrapper>
         <AnimationH2>About</AnimationH2>
         <AnimationH1>Me</AnimationH1>
-      </div>
-      <div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <Image
-            src="/logo.jpg"
-            alt="about image"
-            width={300}
-            height={300}
-            className="rounded-xl mt-4"
-          />
-          <div className="mt-6">
-            <AnimationH1>Mohak Gupta</AnimationH1>
+      </AnimationWrapper>
+
+      <AnimationWrapper delay={50}>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* Profile Image */}
+          <div className="sm:col-span-1">
+            <Image
+              src="/logo.jpg"
+              alt="Mohak Gupta"
+              width={200}
+              height={200}
+              className="rounded-xl border border-border/50 w-full max-w-[200px]"
+            />
+          </div>
+
+          {/* Bio */}
+          <div className="sm:col-span-2 space-y-4">
+            <h3 className="text-xl font-bold text-foreground">Mohak Gupta</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              I'm Mohak Gupta, a passionate Full Stack Software Developer with
+              expertise in building web applications and decentralized
+              applications (dApps). With a strong focus on performance and user
+              experience, I strive to deliver high-quality software that meets
+              the needs of users and businesses alike.
+            </p>
+
+            {/* Skills */}
             <div>
-              <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm">
-                I'm Mohak Gupta, a passionate Full Stack Software Developer with
-                expertise in building web applications and decentralized
-                applications (dApps). With a strong focus on performance and
-                user experience, I strive to deliver high-quality software that
-                meets the needs of users and businesses alike.
-              </p>
-            </div>
-            <br />
-            <div>
-              <p className="text-gray-800 dark:text-gray-300 font-bold font-grotesk">
-                Skills
-              </p>
-              <div>
-                <div className="flex flex-wrap text-sm font-grotesk font-bold">
-                  {tools.map((tool, idx) => (
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {tools.map((tool, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-secondary/50 border border-border/50 rounded-md"
+                    title={tool.alt}
+                  >
                     <Image
-                      key={idx}
                       src={tool.src}
                       alt={tool.alt}
-                      height={20}
-                      width={20}
-                      className="mr-2"
+                      height={16}
+                      width={16}
                     />
-                  ))}
-                </div>
+                    <span className="text-sm text-muted-foreground">
+                      {tool.alt}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </AnimationWrapper>
+      </AnimationWrapper>
+    </section>
   );
 };
+
 export default About;

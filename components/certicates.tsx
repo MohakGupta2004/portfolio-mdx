@@ -1,13 +1,22 @@
 import Image from "next/image";
-import { CardAction } from "./ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { AnimationH2 } from "./animation/animation-h2";
 import { AnimationH1 } from "./animation/animation-h1";
 import AnimationWrapper from "./animation/animation-wrapper";
-const certificates = [
+import { ExternalLink, GraduationCap, Trophy } from "lucide-react";
+
+interface Certificate {
+  icon: "cert" | "award";
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+  source: string;
+}
+
+const certificates: Certificate[] = [
   {
+    icon: "cert",
     src: "/linkedin.svg",
     alt: "CompTIA Pentest+ Certificate Preparation",
     title: "CompTIA Pentest+ Certificate Preparation",
@@ -17,6 +26,7 @@ const certificates = [
       "https://www.linkedin.com/learning/certificates/4f2f31077056cd86e5b5f474099fa28ba30c72b3d1dad6b2c8a7591520ba02b1?trk=share_certificate",
   },
   {
+    icon: "cert",
     src: "/linkedin.svg",
     alt: "Git Intermediate Techniques",
     title: "Git Intermediate Techniques",
@@ -26,6 +36,7 @@ const certificates = [
       "https://www.linkedin.com/learning/certificates/e8df51208279935e5b759419aa0b3bd050990bc4315dd208369fcda76a8749f7",
   },
   {
+    icon: "cert",
     src: "/secops.jpg",
     alt: "Certified Network Security Practitioner",
     title: "Certified Network Security Practitioner",
@@ -35,6 +46,7 @@ const certificates = [
       "https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXV/oLILyQdbIH/qWi6y0BmiDRtAcVmopBCxBAZEtOwxm+6XzHRovGNMw5LI30Yka3NqrlRXxfyq1dmyKtgDMN3Y=",
   },
   {
+    icon: "award",
     src: "/murf.jpeg",
     alt: "Murf AI Voice Agent Challenge",
     title: "Murf AI Voice Agent Challenge",
@@ -44,55 +56,63 @@ const certificates = [
       "https://murf.ai/public-assets/community/tdva-nov-25/certificates/completion/mohakgupta500%40gmail.com.png",
   },
 ];
+
 const Certificates = () => {
   return (
-    <AnimationWrapper>
-      <div>
-        <AnimationH2>Featured</AnimationH2>
-        <AnimationH1>
-          Certificates
-        </AnimationH1>
-      </div>
-      <div>
-        {certificates.map((certificates, index) => (
-          <div
-            key={index}
-            className="mt-2 w-full border rounded-4xl shadow-inner dark:shadow-white/10 bg-card p-4"
-          >
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
-              <Image
-                src={certificates.src}
-                alt={certificates.alt}
-                height={40}
-                width={40}
-                className="rounded-4xl"
-              />
-              <div>
-                <div className="text-black dark:text-white font-bold font-grotesk text-md">
-                  {certificates.title}
-                </div>
-                <div>
-                  <p className="text-gray-700 dark:text-gray-300 text-xs overflow-auto">
-                    {certificates.description}
-                  </p>
-                </div>
+    <section className="mt-16">
+      <AnimationWrapper>
+        <AnimationH2>Achievements</AnimationH2>
+        <AnimationH1>Certifications</AnimationH1>
+      </AnimationWrapper>
+
+      <AnimationWrapper delay={50}>
+        <div className="mt-6 space-y-3">
+          {certificates.map((cert, index) => (
+            <Link
+              key={index}
+              href={cert.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-4 p-4 border border-border/50 rounded-lg bg-card/30 hover:border-primary transition-colors"
+            >
+              {/* Icon */}
+              <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center border ${cert.icon === "cert"
+                  ? "bg-primary/10 border-primary/30"
+                  : "bg-yellow-500/10 border-yellow-500/30"
+                }`}>
+                {cert.icon === "cert" ? (
+                  <GraduationCap className="w-5 h-5 text-primary" />
+                ) : (
+                  <Trophy className="w-5 h-5 text-yellow-500" />
+                )}
               </div>
-              <CardAction className="flex-col items-center mt-4">
-                <Link
-                  href={certificates.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Badge variant={"secondary"}>
-                    view details <ArrowRight />
-                  </Badge>
-                </Link>
-              </CardAction>
-            </div>
-          </div>
-        ))}
-      </div>
-    </AnimationWrapper>
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                    {cert.title}
+                  </h3>
+                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
+                </div>
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                  {cert.description}
+                </p>
+              </div>
+
+              {/* Source Logo */}
+              <Image
+                src={cert.src}
+                alt={cert.alt}
+                height={24}
+                width={24}
+                className="rounded-md flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity hidden sm:block"
+              />
+            </Link>
+          ))}
+        </div>
+      </AnimationWrapper>
+    </section>
   );
 };
 

@@ -40,58 +40,62 @@ const WorkCard = ({
 }: WorkCardProps) => {
   return (
     <details
-      className="group border border-border/50 rounded-lg bg-card/30 open:border-primary/50 transition-colors"
+      className="group border border-white/10 rounded-xl bg-card open:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
       open={open}
     >
-      <summary className="list-none cursor-pointer p-4">
+      <summary className="list-none cursor-pointer p-5">
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-4">
-          <div className="flex gap-3 sm:gap-4 items-start">
+          <div className="flex gap-4 items-start">
             <Image
               src={src}
               height={48}
               width={48}
               alt={alt}
-              className="rounded-lg w-10 h-10 sm:w-12 sm:h-12 object-cover flex-shrink-0 border border-border/50"
+              className="rounded-lg w-12 h-12 object-cover flex-shrink-0 border border-white/10 bg-secondary/10"
             />
 
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="font-semibold text-foreground">{companyName}</h3>
+                <h3 className="font-semibold text-lg text-foreground">{companyName}</h3>
                 <Link
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </Link>
                 {isCurrent && (
-                  <span className="text-xs px-2 py-0.5 bg-primary/20 text-primary rounded-full border border-primary/30">
+                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full border border-primary/20">
                     Current
                   </span>
                 )}
-                <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180 ml-auto sm:hidden" />
               </div>
-              <p className="text-sm text-muted-foreground">{jobRole}</p>
+              <p className="text-sm text-muted-foreground mt-0.5">{jobRole}</p>
             </div>
 
-            <ChevronDown className="hidden sm:block w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180 flex-shrink-0 mt-1" />
+            <ChevronDown className="hidden sm:block w-5 h-5 text-muted-foreground transition-transform duration-300 group-open:rotate-180 flex-shrink-0 mt-1" />
           </div>
 
-          <div className="text-left sm:text-right text-xs text-muted-foreground space-y-0.5 pl-14 sm:pl-0">
+          <div className="text-left sm:text-right text-xs text-muted-foreground/60 space-y-0.5 pl-16 sm:pl-0 font-medium">
             <div>
               {startingDate} - {endingDate}
             </div>
             <div>{location}</div>
           </div>
+          
+          <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform duration-300 group-open:rotate-180 ml-auto sm:hidden" />
         </div>
       </summary>
 
-      <div className="px-4 pb-4 border-t border-border/30 pt-4 mt-2">
+      <div className="px-5 pb-5">
+        {/* Separator */}
+        <hr className="border-t border-white/10 mb-4" />
+        
         {/* Tech Stack */}
         <div className="mb-4">
-          <h4 className="text-xs font-medium text-primary uppercase tracking-wider mb-2">
+          <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
             Technologies
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -104,11 +108,11 @@ const WorkCard = ({
         </div>
 
         {/* Description */}
-        <ul className="space-y-1.5 text-sm text-muted-foreground">
+        <ul className="space-y-2 text-sm text-muted-foreground">
           {description.map((d, idx) => (
-            <li key={idx} className="flex gap-2">
-              <span className="text-primary mt-1.5">→</span>
-              <span>{d}</span>
+            <li key={idx} className="flex gap-3 items-start">
+              <span className="text-white/20 mt-1.5 h-1.5 w-1.5 rounded-full bg-current flex-shrink-0" />
+              <span className="leading-relaxed">{d}</span>
             </li>
           ))}
         </ul>

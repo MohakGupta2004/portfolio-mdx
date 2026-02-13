@@ -30,23 +30,23 @@ const Achievements = () => {
       </AnimationWrapper>
 
       <AnimationWrapper delay={50}>
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 grid grid-cols-1 gap-4">
           {achievements.map((achievement, index) => (
             <div
               key={index}
-              className="flex items-start gap-4 p-4 border border-border/50 rounded-lg bg-card/30"
+              className="group flex items-start gap-4 p-5 border border-white/10 rounded-xl bg-card hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
             >
               {/* Icon */}
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20">
-                <Trophy className="w-5 h-5 text-yellow-500" />
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 group-hover:bg-yellow-500/20 transition-colors">
+                <Trophy className="w-6 h-6 text-yellow-500" />
               </div>
 
               {/* Content */}
-              <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-foreground">
+              <div className="flex-1 min-w-0 py-1">
+                <h3 className="font-semibold text-foreground text-lg">
                   {achievement.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                   {achievement.description}
                 </p>
               </div>
@@ -55,9 +55,9 @@ const Achievements = () => {
               <Image
                 src={achievement.src}
                 alt={achievement.alt}
-                height={32}
-                width={32}
-                className="rounded-lg flex-shrink-0 hidden sm:block"
+                height={40}
+                width={40}
+                className="rounded-lg flex-shrink-0 hidden sm:block opacity-60 group-hover:opacity-100 transition-opacity"
               />
             </div>
           ))}

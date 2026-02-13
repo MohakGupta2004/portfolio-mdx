@@ -30,7 +30,7 @@ const Index = () => {
                 width={120}
                 alt="Mohak Gupta"
                 className={`rounded-full w-24 h-24 sm:w-28 sm:h-28 transition-all duration-200 ${imageClicked
-                  ? "border-2 border-primary shadow-[0_0_15px_oklch(78%_0.18_195_/_0.3)]"
+                  ? "border-2 border-primary shadow-lg shadow-white/10"
                   : "border-2 border-border/50"
                   }`}
               />

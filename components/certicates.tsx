@@ -66,36 +66,36 @@ const Certificates = () => {
       </AnimationWrapper>
 
       <AnimationWrapper delay={50}>
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 grid grid-cols-1 gap-4">
           {certificates.map((cert, index) => (
             <Link
               key={index}
               href={cert.source}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start gap-4 p-4 border border-border/50 rounded-lg bg-card/30 hover:border-primary transition-colors"
+              className="group flex items-start gap-4 p-5 border border-white/10 rounded-xl bg-card hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
             >
               {/* Icon */}
-              <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center border ${cert.icon === "cert"
-                  ? "bg-primary/10 border-primary/30"
-                  : "bg-yellow-500/10 border-yellow-500/30"
+              <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center border transition-colors ${cert.icon === "cert"
+                  ? "bg-primary/10 border-primary/20 group-hover:bg-primary/20"
+                  : "bg-yellow-500/10 border-yellow-500/20 group-hover:bg-yellow-500/20"
                 }`}>
                 {cert.icon === "cert" ? (
-                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <GraduationCap className="w-6 h-6 text-primary" />
                 ) : (
-                  <Trophy className="w-5 h-5 text-yellow-500" />
+                  <Trophy className="w-6 h-6 text-yellow-500" />
                 )}
               </div>
 
               {/* Content */}
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 py-1">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
                     {cert.title}
                   </h3>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
+                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-1" />
                 </div>
-                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
                   {cert.description}
                 </p>
               </div>
@@ -104,9 +104,9 @@ const Certificates = () => {
               <Image
                 src={cert.src}
                 alt={cert.alt}
-                height={24}
-                width={24}
-                className="rounded-md flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity hidden sm:block"
+                height={28}
+                width={28}
+                className="rounded-md flex-shrink-0 opacity-40 group-hover:opacity-100 transition-opacity hidden sm:block"
               />
             </Link>
           ))}

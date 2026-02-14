@@ -17,7 +17,7 @@ const Index = () => {
     <section className="pt-8 sm:pt-12">
       <AnimationWrapper>
         {/* Profile Header - Inspired by link-in-bio style */}
-        <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+        <div className="flex flex-col gap-8 items-start">
           {/* Profile Image */}
           <div className="relative">
             <button
@@ -36,22 +36,18 @@ const Index = () => {
                 }`}
               />
             </button>
-            <Dot className="absolute top-16 left-16 sm:top-20 sm:left-20 md:top-20 md:left-20 lg:left-20 lg:top-20 border dark:bg-gray-500 border-gray-400 bg-gray-200 rounded-4xl shadow-lg shadow-gray-800/20" />
+            <span className="absolute size-5 top-18 left-18 sm:top-20 sm:left-20 md:top-28 md:left-28 lg:left-20 lg:top-21 border dark:bg-green-500 border-green-400 bg-green-300 rounded-4xl shadow-lg shadow-gray-800/20"></span>
           </div>
 
           {/* Name & Quick Info */}
-          <div className="flex-1">
-            <h1 className="font-grotesk text-2xl sm:text-3xl font-bold text-foreground">
+          <div className="flex flex-col gap-2 w-full">
+            <h1 className="font-grotesk text-3xl sm:text-4xl font-bold text-foreground">
               Mohak Gupta
             </h1>
-            <p className="text-muted-foreground mt-1">Full Stack Developer</p>
+            <p className="text-lg text-muted-foreground">Full Stack Developer</p>
 
             {/* Status Tags */}
             <div className="flex flex-wrap items-center gap-3 mt-3 text-sm">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                Open to Work
-              </span>
               <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                 <MapPin className="w-3.5 h-3.5" />
                 India

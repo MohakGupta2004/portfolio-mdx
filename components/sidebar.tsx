@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { Home, FolderOpen, Briefcase, BookOpen, Menu, X } from "lucide-react";
+import { Home, FolderOpen, Briefcase, BookOpen, Menu, X, BriefcaseBusiness, FolderKanban, NotebookPen } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -14,17 +14,17 @@ const navItems = [
     route: "/",
   },
   {
-    icon: Briefcase,
+    icon: BriefcaseBusiness,
     label: "Work",
     route: "/work",
   },
   {
-    icon: FolderOpen,
+    icon: FolderKanban,
     label: "Projects",
     route: "/projects",
   },
   {
-    icon: BookOpen,
+    icon: NotebookPen,
     label: "Blogs",
     route: "/blogs",
   },
@@ -32,7 +32,7 @@ const navItems = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  /*const [mobileOpen, setMobileOpen] = useState(false);*/
   const [isExpanded, setIsExpanded] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -155,48 +155,7 @@ const Sidebar = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="md:hidden fixed bottom-4 left-4 z-50 p-3 bg-card/90 backdrop-blur-md border border-border/50 rounded-full shadow-lg shadow-black/20 text-foreground hover:bg-muted/50 transition-all duration-200"
-        aria-label="Toggle navigation"
-      >
-        {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-      </button>
 
-      {/* Mobile Nav Overlay */}
-      {mobileOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm animate-fade-in"
-            onClick={() => setMobileOpen(false)}
-          />
-
-          {/* Mobile Nav Panel */}
-          <nav className="md:hidden fixed bottom-16 left-4 z-50 flex flex-col gap-1 p-3 bg-card/95 backdrop-blur-md border border-border/50 rounded-2xl shadow-xl shadow-black/30 animate-fade-in-up">
-            {navItems.map((item) => {
-              const isActive = pathname === item.route;
-              return (
-                <Link
-                  key={item.route}
-                  href={item.route}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-all duration-200",
-                    isActive
-                      ? "bg-primary/10 text-foreground font-medium"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <item.icon className="w-4 h-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </>
-      )}
     </>
   );
 };

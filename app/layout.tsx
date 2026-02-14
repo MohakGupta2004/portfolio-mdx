@@ -57,7 +57,7 @@ export default function RootLayout({
         <Providers>
           <Sidebar />
           <ThemeToggleFixed />
-          <main className="md:pl-16 mx-auto max-w-3xl px-4 sm:px-6 md:px-8 pb-8">
+          <main className="md:pl-16 mx-auto max-w-3xl px-4 sm:px-6 md:px-8 pb-8  mt-20">
             {children}
           </main>
           <Footer />
@@ -66,4 +66,3 @@ export default function RootLayout({
     </html>
   );
 }
-

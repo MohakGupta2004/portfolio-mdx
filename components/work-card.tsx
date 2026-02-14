@@ -40,7 +40,7 @@ const WorkCard = ({
 }: WorkCardProps) => {
   return (
     <details
-      className="group border border-white/10 rounded-xl bg-card open:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
+      className="group border border-gray-300 dark:border-white/20 rounded-xl bg-card open:border-gray-300 dark:open:border-white/20 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 hover:shadow-sm hover:shadow-black/20"
       open={open}
     >
       <summary className="list-none cursor-pointer p-5">
@@ -56,7 +56,9 @@ const WorkCard = ({
 
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="font-semibold text-lg text-foreground">{companyName}</h3>
+                <h3 className="font-semibold text-lg text-foreground">
+                  {companyName}
+                </h3>
                 <Link
                   href={href}
                   target="_blank"
@@ -84,7 +86,7 @@ const WorkCard = ({
             </div>
             <div>{location}</div>
           </div>
-          
+
           <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform duration-300 group-open:rotate-180 ml-auto sm:hidden" />
         </div>
       </summary>
@@ -92,7 +94,7 @@ const WorkCard = ({
       <div className="px-5 pb-5">
         {/* Separator */}
         <hr className="border-t border-white/10 mb-4" />
-        
+
         {/* Tech Stack */}
         <div className="mb-4">
           <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">

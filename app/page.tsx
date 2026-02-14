@@ -9,31 +9,21 @@ import Index from "@/components/index";
 import Projects from "@/components/projects";
 import Quotes from "@/components/quotes";
 import WorkProjects from "@/components/work-projects";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-
+import { ReactLenis, useLenis } from 'lenis/react'
 export default function Home() {
   return (
     <div className="mx-auto md:max-w-3xl *:[[id]]:scroll-mt-22">
-      <Index />
-      <Separator />
-      <Experience />
-      <Separator />
-      <WorkProjects />
-      <Separator />
-      <Projects />
-      <Separator />
-      <GithubStats />
-      <Separator />
+      <ReactLenis options={{ duration: 2 }} root/>
+        <Index />
+        <Experience />
+        <WorkProjects />
+        <Projects />
+        <GithubStats />
       <Blog />
-      <Separator />
       <Achievements />
-      <Separator />
       <Certificates />
-      <Separator />
       <About />
-      <Separator />
       <ConnectWithMe />
-      <Separator />
       <Quotes />
     </div>
   );

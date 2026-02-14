@@ -28,7 +28,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
   return (
     <AnimationWrapper>
       <Link href={`/blogs/${blog.slug}`} passHref>
-        <Card className="relative h-full rounded-2xl w-full pt-0 gap-4 overflow-hidden shadow-inner hover:border-gray-500">
+        <Card className="relative h-full rounded-2xl w-full pt-0 gap-4 overflow-hidden shadow-inner hover:border-gray-300 dark:hover:border-white/20">
           <div className="absolute inset-0 z-30 aspect-video" />
           <Image
             src={`/images/blogs/${blog.slug}.jpg`}

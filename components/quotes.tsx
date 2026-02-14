@@ -10,7 +10,7 @@ const Quotes = async () => {
   return (
     <section className="mt-16">
       <AnimationWrapper>
-        <div className="relative border border-border/50 rounded-xl bg-card/30 p-8 sm:p-10 overflow-hidden">
+        <div className="relative border border-gray-300 dark:border-white/20 rounded-xl bg-card/30 p-8 sm:p-10 overflow-hidden">
           {/* Accent line */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
@@ -18,9 +18,7 @@ const Quotes = async () => {
           <blockquote className="text-xl sm:text-2xl font-medium text-foreground leading-relaxed">
             "{data[0].q}"
           </blockquote>
-          <p className="mt-4 text-sm text-primary">
-            — {data[0].a}
-          </p>
+          <p className="mt-4 text-sm text-primary">— {data[0].a}</p>
         </div>
       </AnimationWrapper>
     </section>

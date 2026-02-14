@@ -44,7 +44,7 @@ const GithubStats = async () => {
       </AnimationWrapper>
 
       <AnimationWrapper delay={50}>
-        <div className="mt-6 border border-border/50 rounded-lg bg-card/30 p-4 overflow-x-auto">
+        <div className="mt-6 border border-gray-300 dark:border-white/20 rounded-lg bg-card/30 p-4 overflow-x-auto">
           <GithubActivity
             weeks={
               data.data.user.contributionsCollection.contributionCalendar.weeks

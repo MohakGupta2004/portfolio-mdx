@@ -29,10 +29,11 @@ const Index = () => {
                 height={120}
                 width={120}
                 alt="Mohak Gupta"
-                className={`rounded-full w-24 h-24 sm:w-28 sm:h-28 transition-all duration-200 ${imageClicked
-                  ? "border-2 border-primary shadow-lg shadow-white/10"
-                  : "border-2 border-border/50"
-                  }`}
+                className={`rounded-full w-24 h-24 sm:w-28 sm:h-28 transition-all duration-200 ${
+                  imageClicked
+                    ? "border-2 border-primary shadow-lg shadow-white/10"
+                    : "border-2 border-border/50"
+                }`}
               />
             </button>
             <Dot className="absolute top-16 left-16 sm:top-20 sm:left-20 md:top-20 md:left-20 lg:left-20 lg:top-20 border dark:bg-gray-500 border-gray-400 bg-gray-200 rounded-4xl shadow-lg shadow-gray-800/20" />
@@ -43,9 +44,7 @@ const Index = () => {
             <h1 className="font-grotesk text-2xl sm:text-3xl font-bold text-foreground">
               Mohak Gupta
             </h1>
-            <p className="text-muted-foreground mt-1">
-              Full Stack Developer
-            </p>
+            <p className="text-muted-foreground mt-1">Full Stack Developer</p>
 
             {/* Status Tags */}
             <div className="flex flex-wrap items-center gap-3 mt-3 text-sm">
@@ -126,7 +125,11 @@ const Index = () => {
                 C
               </TechStackButton>
               <span>,</span>
-              <TechStackButton href="https://isocpp.org" src="/cpp.svg" alt="cpp">
+              <TechStackButton
+                href="https://isocpp.org"
+                src="/cpp.svg"
+                alt="cpp"
+              >
                 C++
               </TechStackButton>
               <span>,</span>
@@ -160,7 +163,7 @@ const Index = () => {
           </Link>
           <Link
             href={"mailto:mohakgupta500@gmail.com"}
-            className="group inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 shadow-lg shadow-inner shadow-gray-800/10"
+            className="group inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg bg-linear-to-b from-primary to-primary/80 dark:from-primary/90 dark:to-primary text-primary-foreground hover:opacity-90 transition-all duration-200 shadow-sm shadow-inner shadow-white/10 dark:shadow-black/30"
           >
             <Send className="w-4 h-4" />
             Get in touch

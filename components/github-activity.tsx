@@ -2,13 +2,13 @@ function getColor(contributionCount: number) {
   if (contributionCount === 0) {
     return "bg-muted";
   } else if (contributionCount < 5) {
-    return "bg-primary/30";
+    return "bg-green-300";
   } else if (contributionCount < 10) {
-    return "bg-primary/50";
+    return "bg-green-400";
   } else if (contributionCount < 20) {
-    return "bg-primary/70";
+    return "bg-green-500";
   } else {
-    return "bg-primary";
+    return "bg-green-600";
   }
 }
 

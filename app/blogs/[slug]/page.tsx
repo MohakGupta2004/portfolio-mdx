@@ -1,3 +1,5 @@
+import ReactLenis from "lenis/react";
+
 export default async function Page({
   params,
 }: {
@@ -9,6 +11,7 @@ export default async function Page({
   return (
     <article className="container mx-auto max-w-3xl px-4 py-12">
       <div className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 max-w-none">
+      <ReactLenis options={{ duration: 2 }} root/>
         <Post />
       </div>
     </article>

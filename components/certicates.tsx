@@ -73,13 +73,16 @@ const Certificates = () => {
               href={cert.source}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start gap-4 p-5 border border-white/10 rounded-xl bg-card hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
+              className="group flex items-start gap-4 p-5 border border-gray-300 dark:border-white/20 rounded-xl bg-card hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
             >
               {/* Icon */}
-              <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center border transition-colors ${cert.icon === "cert"
-                  ? "bg-primary/10 border-primary/20 group-hover:bg-primary/20"
-                  : "bg-yellow-500/10 border-yellow-500/20 group-hover:bg-yellow-500/20"
-                }`}>
+              <div
+                className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center border transition-colors ${
+                  cert.icon === "cert"
+                    ? "bg-primary/10 border-primary/20 group-hover:bg-primary/20"
+                    : "bg-yellow-500/10 border-yellow-500/20 group-hover:bg-yellow-500/20"
+                }`}
+              >
                 {cert.icon === "cert" ? (
                   <GraduationCap className="w-6 h-6 text-primary" />
                 ) : (

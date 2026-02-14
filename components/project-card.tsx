@@ -27,16 +27,16 @@ const ProjectCard = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block h-full border border-white/10 rounded-2xl overflow-hidden bg-card hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/20"
+      className="group block h-full border border-gray-300 dark:border-white/20 rounded-2xl overflow-hidden bg-card hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 hover:shadow-sm hover:shadow-black/20"
     >
       {/* Project Image */}
       <div className="relative aspect-video overflow-hidden bg-secondary/20">
         <Image
-          src={src} 
+          src={src}
           height={200}
           width={400}
           alt={alt}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-101"
         />
       </div>
 
@@ -60,8 +60,8 @@ const ProjectCard = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {tools.slice(0, 5).map((tool, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="p-1.5 rounded-md bg-secondary/30 border border-white/5"
                 title={tool.alt}
               >

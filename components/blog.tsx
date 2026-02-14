@@ -64,7 +64,7 @@ const Blog = () => {
               <Link
                 key={blog.id}
                 href={`/blogs/${blog.slug}`}
-                className="group flex flex-col sm:flex-row gap-4 p-4 border border-border/50 rounded-lg bg-card/30 hover:border-primary transition-colors"
+                className="group flex flex-col sm:flex-row gap-4 p-4 border border-gray-300 dark:border-white/20 rounded-lg bg-card/30 hover:border-gray-300 dark:hover:border-white/20 transition-colors"
               >
                 {/* Article Image */}
                 {blog.image && (

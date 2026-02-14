@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProjectCard from "@/components/project-card";
+import ReactLenis from "lenis/react";
 
 const projects = [
   {
@@ -122,7 +123,8 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="mt-12">
+    <div className="mt-20">
+      <ReactLenis root options={{lerp: 0.1, duration: 1}}/>
       <div className="col-span-1 md:col-span-2 lg:col-span-2">
         <h1 className="font-grotesk font-bold text-center text-3xl">
           Projects

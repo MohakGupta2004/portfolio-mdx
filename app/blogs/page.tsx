@@ -15,6 +15,25 @@ const Blogs = () => {
       slug: "hello-world",
       tags: ["motivation"],
     },
+    {
+      id: 2,
+      title: "Monolith to Microservices — What System Design Taught Me",
+      description:
+        "My notes while studying HLD, working with a monolithic codebase, and understanding Saga, Strangler, and deployment patterns in real systems.",
+      date: "March 02, 2026",
+      category: "system-design",
+      readTime: "10 min",
+      slug: "monolithic-and-microservices",
+      tags: [
+        "system-design",
+        "architecture",
+        "microservices",
+        "monolith",
+        "saga",
+        "strangler-pattern",
+        "canary-deployment",
+      ],
+    },
   ];
 
   return (

@@ -1,0 +1,221 @@
+# Monolithic vs Microservices — Notes from My System Design Journey
+
+For a long time, I wanted to properly study system design — especially the HLD (High-Level Design) part. I knew the basics of monolithic and microservices architecture, but it always felt theoretical.
+
+Recently, I finally started going deeper into it.
+
+At work, most of our backend runs as a monolith. A single server. A single deployment. Everything living together. And honestly, for a while, it worked perfectly fine.
+
+But then I ran into something interesting.
+
+---
+
+## Working with a Monolith in Real Life
+
+In our codebase, most of the logic sits in one place:
+
+* APIs
+* Business logic
+* Database access
+
+All deployed together.
+
+This is classic monolithic architecture.
+
+![monolithic](/images/internal/monolithic-and-microservice/monolithic.png)
+
+It’s straightforward. Easy to reason about. Easy to deploy.
+
+But things got complicated when asynchronous tasks entered the picture.
+
+We had:
+
+* Queue services
+* Background workers
+* Long-running jobs
+
+Even though it was still technically a monolith, I had to separate concerns:
+
+* The API layer
+* The worker processes
+* The queue system
+
+Now suddenly, I wasn’t just thinking about one application. I was thinking about coordination between components.
+
+And that’s where microservice thinking started creeping in.
+
+---
+
+## When Microservice Thinking Starts
+
+Even inside a monolith, once you introduce:
+
+* Queues
+* Workers
+* Background processing
+* Event-driven flows
+
+You start thinking in distributed terms.
+
+You start asking:
+
+* What if this task fails?
+* What if this job runs twice?
+* What if this service is slow?
+* What happens when one part succeeds and another fails?
+
+That’s when system design stops being theory and becomes practical.
+
+---
+
+## Revisiting Monolith vs Microservices
+
+While studying HLD, I started revisiting the fundamentals.
+
+A monolith is one deployable unit.
+
+![monolithic](/images/internal/monolithic-and-microservice/monolithic.png)
+
+It’s simple and cohesive.
+
+A microservices architecture splits the system into independent services.
+
+![microservice](/images/internal/monolithic-and-microservice/microservices.png)
+
+Each service:
+
+* Owns its data
+* Deploys independently
+* Communicates over the network
+
+The key difference isn’t just structure.
+
+It’s operational complexity.
+
+---
+
+## Deployment Concerns — Canary
+
+When I started reading more about scaling systems, deployment strategies became important.
+
+Canary deployment stood out because it’s practical.
+
+Instead of pushing a new version to everyone:
+
+* Most traffic goes to the old version
+* A small percentage goes to the new version
+
+If things look stable, increase traffic gradually.
+
+![Canary Deployment](/images/internal/monolithic-and-microservice/canary.png)
+
+This isn’t theory. This is how you reduce real production risk.
+
+---
+
+## Migration Thinking — Strangler Pattern
+
+Another concept that made sense during system design was the Strangler Pattern.
+
+Instead of rewriting a monolith entirely:
+
+* Keep it running
+* Extract one feature into a new service
+* Route traffic to the new service
+* Repeat
+
+Over time, the monolith shrinks.
+
+![Strangler Pattern](/images/internal/monolithic-and-microservice/strangler-fig.png)
+
+This felt very realistic. No big-bang rewrite. Just controlled evolution.
+
+---
+
+## The Real Distributed Problem — Consistency
+
+The biggest shift in my thinking came when I understood distributed consistency.
+
+In a monolith, if something fails, you roll back the database transaction.
+
+Simple.
+
+In microservices, each service owns its own database.
+
+Now imagine:
+
+* Order is created
+* Payment fails
+
+Order exists. Payment doesn’t.
+
+No shared transaction.
+No automatic rollback.
+
+![Saga Failure Scenario](/images/internal/monolithic-and-microservice/problem-saga.png)
+
+This is where Saga comes in.
+
+---
+
+## Saga — Event-Driven
+
+One solution is event-driven coordination.
+
+For example:
+
+* Order Service creates order → emits event
+* Payment Service listens → processes payment
+* If payment fails → emits failure event
+* Order Service listens → cancels order
+
+![Saga Choreography Kafka](/images/internal/monolithic-and-microservice/solution-kafka-saga.png)
+
+Each service reacts to events.
+
+No central controller.
+But tracing the flow becomes more complex.
+
+---
+
+## Saga — Orchestration
+
+Another approach is using a controller.
+
+The controller:
+
+* Calls Order Service
+* Calls Payment Service
+* If payment fails → cancels order
+
+![Saga Orchestration](/images/internal/monolithic-and-microservice/solution-orchestrator-saga.png)
+
+More centralized.
+Easier to reason about.
+But now you depend heavily on the orchestrator.
+
+---
+
+## What Changed for Me
+
+Before studying system design seriously, these patterns felt abstract.
+
+After working with queues, workers, and asynchronous tasks inside a monolith, I started seeing why these patterns exist.
+
+Microservices are not just about splitting code.
+
+They’re about handling:
+
+* Independent failures
+* Distributed state
+* Partial success
+* Safe deployments
+* Gradual evolution
+
+Right now, I still work mostly with a monolithic architecture.
+
+But understanding microservices, Saga, Strangler, and deployment strategies has changed how I think about system boundaries.
+
+System design stopped being interview preparation.
+
+It became a way to think about real problems in production systems.

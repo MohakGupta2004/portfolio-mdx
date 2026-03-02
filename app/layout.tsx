@@ -6,6 +6,7 @@ import { Hanken_Grotesk } from "next/font/google";
 import Footer from "@/components/footer";
 import { Metadata } from "next";
 import ThemeSwitcher from "@/components/theme-switch";
+import { Toaster } from "sonner";
 
 const grotesk = Hanken_Grotesk({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster/>
         </Providers>
       </body>
     </html>

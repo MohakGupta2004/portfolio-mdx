@@ -1,3 +1,4 @@
+import { LikeButton } from "@/components/like-button";
 import ReactLenis from "lenis/react";
 
 export function generateStaticParams() {
@@ -17,6 +18,7 @@ export default async function Page({
       <div className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 max-w-none">
         <ReactLenis options={{ duration: 2 }} root />
         <Post />
+        <LikeButton slug={slug}/>
       </div>
     </article>
   );

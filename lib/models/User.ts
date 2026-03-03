@@ -5,6 +5,7 @@ export interface IUser {
   clerkId: string;
   email: string;
   name?: string;
+  avatarUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,6 +23,10 @@ const UserSchema = new Schema<IUser>(
       unique: true,
     },
     name: {
+      type: String,
+      required: false,
+    },
+    avatarUrl: {
       type: String,
       required: false,
     },

@@ -1,3 +1,4 @@
+import CommentSection from "@/components/comment-section";
 import { LikeButton } from "@/components/like-button";
 import ReactLenis from "lenis/react";
 
@@ -18,7 +19,8 @@ export default async function Page({
       <div className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 max-w-none">
         <ReactLenis options={{ duration: 2 }} root />
         <Post />
-        <LikeButton slug={slug}/>
+        <LikeButton slug={slug} />
+        <CommentSection slug={slug} />
       </div>
     </article>
   );

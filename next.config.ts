@@ -1,13 +1,29 @@
 import type { NextConfig } from "next";
-import createMDX from '@next/mdx'
+import createMDX from "@next/mdx";
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+});
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  pageExtensions: ['mdx', 'ts', 'tsx'],
-  experimental:{
-    mdxRs: true
-  }
+  pageExtensions: ["ts", "tsx", "mdx"],
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.clerk.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+      },
+    ],
+  },
 };
 
-const withMdx = createMDX({})
-
-export default withMdx(nextConfig);
+export default withMDX(nextConfig);

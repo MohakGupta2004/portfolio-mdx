@@ -166,6 +166,19 @@ export async function PATCH(request: NextRequest) {
       comment.reactions[action as keyof typeof comment.reactions] - 1,
     );
   } else {
+    // Upvote and downvote are mutually exclusive
+    const opposite = action === "upvote" ? "downvote" : action === "downvote" ? "upvote" : null;
+    if (opposite) {
+      const oppositeIndex = userActions.indexOf(opposite);
+      if (oppositeIndex > -1) {
+        userActions.splice(oppositeIndex, 1);
+        comment.reactions[opposite as keyof typeof comment.reactions] = Math.max(
+          0,
+          comment.reactions[opposite as keyof typeof comment.reactions] - 1,
+        );
+      }
+    }
+
     // Add reaction for this user
     userActions.push(action);
     comment.reactions[action as keyof typeof comment.reactions] += 1;

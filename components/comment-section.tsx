@@ -190,19 +190,37 @@ export default function CommentSection({ slug }: CommentSectionProps) {
   ): CommentData[] => {
     return commentList.map((c) => {
       if (c.id === commentId) {
-        const newSelectedActions = isAdding
-          ? [...(c.selectedActions || []), action]
-          : (c.selectedActions || []).filter((a) => a !== action);
+        let newSelectedActions = [...(c.selectedActions || [])];
         const newActions = { ...c.actions };
+
         if (isAdding) {
+          // Remove the opposite reaction if upvote/downvote
+          const opposite =
+            action === "upvote"
+              ? "downvote"
+              : action === "downvote"
+                ? "upvote"
+                : null;
+          if (opposite && newSelectedActions.includes(opposite)) {
+            newSelectedActions = newSelectedActions.filter(
+              (a) => a !== opposite,
+            );
+            newActions[opposite as keyof typeof newActions] = Math.max(
+              0,
+              (newActions[opposite as keyof typeof newActions] || 0) - 1,
+            );
+          }
+          newSelectedActions.push(action);
           newActions[action as keyof typeof newActions] =
             (newActions[action as keyof typeof newActions] || 0) + 1;
         } else {
+          newSelectedActions = newSelectedActions.filter((a) => a !== action);
           newActions[action as keyof typeof newActions] = Math.max(
             0,
             (newActions[action as keyof typeof newActions] || 0) - 1,
           );
         }
+
         return {
           ...c,
           actions: newActions,

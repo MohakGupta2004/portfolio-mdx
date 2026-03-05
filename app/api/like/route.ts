@@ -1,74 +1,85 @@
 import { Blog, Like, User } from "@/lib/models";
 import { connectDB } from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { syncUser } from "@/lib/sync-user";
-const mongoose = await connectDB();
+import { auth } from "@clerk/nextjs/server";
+
+await connectDB();
+
 export async function POST(request: NextRequest) {
   const { slug } = await request.json();
-  const token = request.headers.get("Authorization")?.split(" ")[1];
   const { userId } = await auth();
+
   if (!userId) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
-  const blog = await Blog.findOne({
-    name: slug,
-  });
-  console.log("Blog found:", blog);
+
+  // Look up user directly — they should already be synced from sign-in
+  const user = await User.findOne({ clerkId: userId }).lean();
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  const blog = await Blog.findOne({ name: slug });
   if (!blog) {
     return NextResponse.json({ error: "Blog not found" }, { status: 404 });
   }
-  console.log("User ID from auth:", userId);
 
-  // Get Clerk user data and sync to database
-  const clerk = await clerkClient();
-  const clerkUser = await clerk.users.getUser(userId);
-  const user = await syncUser(
-    userId,
-    clerkUser.emailAddresses[0]?.emailAddress || "",
-    clerkUser.firstName || clerkUser.username || undefined,
-  );
-  const session = await mongoose.startSession();
-  await session.withTransaction(async () => {
-    const isLiked = await Like.findOne({
-      userId: user._id,
-      blogId: blog._id,
-    });
-    if (isLiked) {
-      await Like.deleteOne({
-        userId: user._id,
-        blogId: blog._id,
-      });
-      blog.likeCount = Math.max(0, blog.likeCount - 1);
-    } else {
-      const like = new Like({
-        userId: user._id,
-        blogId: blog._id,
-      });
-      await like.save();
-      blog.likeCount += 1;
-    }
-    await blog.save();
+  // Toggle like without transactions — use atomic operations
+  const existingLike = await Like.findOne({
+    userId: user._id,
+    blogId: blog._id,
   });
-  await session.endSession();
 
-  return NextResponse.json({ success: true }, { status: 200 });
+  let isLiked: boolean;
+  let likeCount: number;
+
+  if (existingLike) {
+    await Like.deleteOne({ _id: existingLike._id });
+    const updated = await Blog.findByIdAndUpdate(
+      blog._id,
+      { $inc: { likeCount: -1 } },
+      { new: true },
+    );
+    isLiked = false;
+    likeCount = Math.max(0, updated?.likeCount ?? 0);
+  } else {
+    await Like.create({ userId: user._id, blogId: blog._id });
+    const updated = await Blog.findByIdAndUpdate(
+      blog._id,
+      { $inc: { likeCount: 1 } },
+      { new: true },
+    );
+    isLiked = true;
+    likeCount = updated?.likeCount ?? 0;
+  }
+
+  // Return the new state so the frontend doesn't need a second GET
+  return NextResponse.json({ success: true, isLiked, likeCount }, { status: 200 });
 }
 
 export async function GET(request: NextRequest) {
   const { slug } = Object.fromEntries(request.nextUrl.searchParams.entries());
   const { userId } = await auth();
-  const result = await Blog.findOne({ name: slug });
+
+  const result = await Blog.findOne({ name: slug }).lean();
   if (!result) {
     return NextResponse.json({ error: "Blog not found" }, { status: 404 });
   }
-  const user = await User.findOne({ clerkId: userId });
-  const isLiked = await Like.findOne({
-    userId: user ? user._id : null,
-    blogId: result._id,
-  });
+
+  let isLiked = false;
+  if (userId) {
+    const user = await User.findOne({ clerkId: userId }).lean();
+    if (user) {
+      const like = await Like.findOne({
+        userId: user._id,
+        blogId: result._id,
+      }).lean();
+      isLiked = !!like;
+    }
+  }
+
   return NextResponse.json(
-    { isLiked: isLiked, likeCount: result.likeCount },
+    { isLiked, likeCount: (result as any).likeCount ?? 0 },
     { status: 200 },
   );
 }

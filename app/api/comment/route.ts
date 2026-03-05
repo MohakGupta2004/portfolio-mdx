@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       rocket: 0,
       heart: 0,
     },
-    selectedReactions: [],
+    userReactions: new Map(),
   });
   await comment.save();
 
@@ -94,6 +94,12 @@ export async function GET(request: NextRequest) {
   const responseComments = comments.map((comment) => {
     const userEmail = (comment.userId as any).email || "";
     const username = userEmail.split("@")[0] || "";
+
+    // Get the current user's reactions from the per-user map
+    const currentUserReactions = userId
+      ? (comment.userReactions?.get(userId) || [])
+      : [];
+
     return {
       id: comment._id.toString(),
       text: comment.content,
@@ -114,7 +120,7 @@ export async function GET(request: NextRequest) {
         rocket: comment.reactions?.rocket || 0,
         heart: comment.reactions?.heart || 0,
       },
-      selectedActions: comment.selectedReactions || [],
+      selectedActions: currentUserReactions,
       replies: [],
     };
   });
@@ -143,21 +149,30 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
   }
 
-  // Toggle the reaction
-  const actionIndex = comment.selectedReactions.indexOf(action);
+  // Initialize userReactions map if it doesn't exist
+  if (!comment.userReactions) {
+    comment.userReactions = new Map();
+  }
+
+  // Get the current user's reactions
+  const userActions = comment.userReactions.get(userId) || [];
+  const actionIndex = userActions.indexOf(action);
+
   if (actionIndex > -1) {
-    // Remove reaction
-    comment.selectedReactions.splice(actionIndex, 1);
+    // Remove reaction for this user
+    userActions.splice(actionIndex, 1);
     comment.reactions[action as keyof typeof comment.reactions] = Math.max(
       0,
       comment.reactions[action as keyof typeof comment.reactions] - 1,
     );
   } else {
-    // Add reaction
-    comment.selectedReactions.push(action);
+    // Add reaction for this user
+    userActions.push(action);
     comment.reactions[action as keyof typeof comment.reactions] += 1;
   }
 
+  comment.userReactions.set(userId, userActions);
+  comment.markModified('userReactions');
   await comment.save();
 
   return NextResponse.json({ success: true, comment }, { status: 200 });

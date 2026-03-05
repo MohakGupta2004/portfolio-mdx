@@ -12,7 +12,8 @@ export interface IComment {
     rocket: number;
     heart: number;
   };
-  selectedReactions: string[]; // Track which reactions the user selected
+  // Per-user reaction tracking: Map of clerkId -> array of action names
+  userReactions: Map<string, string[]>;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -56,9 +57,10 @@ const CommentSchema = new Schema<IComment>(
         default: 0,
       },
     },
-    selectedReactions: {
-      type: [String],
-      default: [],
+    userReactions: {
+      type: Map,
+      of: [String],
+      default: new Map(),
     },
   },
   {

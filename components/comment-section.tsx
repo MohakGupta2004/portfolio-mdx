@@ -16,6 +16,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 import {
@@ -112,7 +118,8 @@ export default function CommentSection({ slug }: CommentSectionProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [replyTo, setReplyTo] = useState<string | null>(null);
-  const [replyText, setReplyText] = useState("");
+  // Track in-flight reactions to prevent double-clicks
+  const [reactingSet, setReactingSet] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (slug) loadComments();
@@ -148,7 +155,6 @@ export default function CommentSection({ slug }: CommentSectionProps) {
 
       if (res.ok) {
         setNewComment("");
-        setReplyText("");
         setReplyTo(null);
         await loadComments();
       } else {
@@ -175,7 +181,80 @@ export default function CommentSection({ slug }: CommentSectionProps) {
     }
   };
 
+  // Helper to update a comment's reaction state in the nested tree
+  const updateCommentReaction = (
+    commentList: CommentData[],
+    commentId: string,
+    action: string,
+    isAdding: boolean,
+  ): CommentData[] => {
+    return commentList.map((c) => {
+      if (c.id === commentId) {
+        const newSelectedActions = isAdding
+          ? [...(c.selectedActions || []), action]
+          : (c.selectedActions || []).filter((a) => a !== action);
+        const newActions = { ...c.actions };
+        if (isAdding) {
+          newActions[action as keyof typeof newActions] =
+            (newActions[action as keyof typeof newActions] || 0) + 1;
+        } else {
+          newActions[action as keyof typeof newActions] = Math.max(
+            0,
+            (newActions[action as keyof typeof newActions] || 0) - 1,
+          );
+        }
+        return {
+          ...c,
+          actions: newActions,
+          selectedActions: newSelectedActions,
+        };
+      }
+      if (c.replies?.length > 0) {
+        return {
+          ...c,
+          replies: updateCommentReaction(
+            c.replies,
+            commentId,
+            action,
+            isAdding,
+          ),
+        };
+      }
+      return c;
+    });
+  };
+
   const handleReaction = async (commentId: string, action: string) => {
+    // Prevent double-clicks while a reaction is in-flight
+    const reactionKey = `${commentId}:${action}`;
+    if (reactingSet.has(reactionKey)) return;
+
+    // Find the comment to determine if we're adding or removing
+    const findComment = (list: CommentData[]): CommentData | undefined => {
+      for (const c of list) {
+        if (c.id === commentId) return c;
+        if (c.replies?.length) {
+          const found = findComment(c.replies);
+          if (found) return found;
+        }
+      }
+      return undefined;
+    };
+
+    const comment = findComment(comments);
+    if (!comment) return;
+
+    const isCurrentlyActive = comment.selectedActions?.includes(action);
+    const isAdding = !isCurrentlyActive;
+
+    // Optimistic UI update — instant feedback
+    setComments((prev) =>
+      updateCommentReaction(prev, commentId, action, isAdding),
+    );
+
+    // Block further clicks on this reaction
+    setReactingSet((prev) => new Set(prev).add(reactionKey));
+
     try {
       const res = await fetch("/api/comment", {
         method: "PATCH",
@@ -183,10 +262,26 @@ export default function CommentSection({ slug }: CommentSectionProps) {
         body: JSON.stringify({ commentId, action }),
       });
 
-      if (res.ok) await loadComments();
-      else toast.error("Failed to update reaction");
+      if (!res.ok) {
+        // Rollback optimistic update on failure
+        setComments((prev) =>
+          updateCommentReaction(prev, commentId, action, !isAdding),
+        );
+        toast.error("Failed to update reaction");
+      }
     } catch {
+      // Rollback on error
+      setComments((prev) =>
+        updateCommentReaction(prev, commentId, action, !isAdding),
+      );
       toast.error("Error updating reaction");
+    } finally {
+      // Unblock this reaction
+      setReactingSet((prev) => {
+        const next = new Set(prev);
+        next.delete(reactionKey);
+        return next;
+      });
     }
   };
 
@@ -239,6 +334,7 @@ export default function CommentSection({ slug }: CommentSectionProps) {
     comment: CommentData;
     depth?: number;
   }) => {
+    const [localReplyText, setLocalReplyText] = useState("");
     const isOwner = user?.id === comment.user.clerkId;
     const canReply = depth < 3;
     const isEdited =
@@ -338,21 +434,25 @@ export default function CommentSection({ slug }: CommentSectionProps) {
               </div>
             </div>
 
-            {/* More menu (delete) */}
+            {/* More menu (delete) — dropdown instead of direct delete */}
             {isOwner && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    className="h-6 w-6 shrink-0 flex items-center justify-center rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-accent opacity-0 group-hover/comment:opacity-100 transition-all"
-                    onClick={() => handleDeleteComment(comment.id)}
-                  >
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="h-6 w-6 shrink-0 flex items-center justify-center rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-accent opacity-0 group-hover/comment:opacity-100 transition-all">
                     <MoreVertical className="h-4 w-4" />
                   </button>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="text-xs">
-                  Delete comment
-                </TooltipContent>
-              </Tooltip>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-36">
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={() => handleDeleteComment(comment.id)}
+                    className="gap-2"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
 
@@ -367,8 +467,8 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                     size="sm"
                   />
                   <Textarea
-                    value={replyText}
-                    onChange={(e) => setReplyText(e.target.value)}
+                    value={localReplyText}
+                    onChange={(e) => setLocalReplyText(e.target.value)}
                     placeholder={`Reply to ${comment.user.fullName}...`}
                     className="min-h-[48px] text-sm resize-none bg-background/80 border-border/50 focus-visible:ring-1 focus-visible:ring-ring/30"
                     autoFocus
@@ -381,7 +481,7 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                     className="h-7 text-xs text-muted-foreground"
                     onClick={() => {
                       setReplyTo(null);
-                      setReplyText("");
+                      setLocalReplyText("");
                     }}
                   >
                     Cancel
@@ -389,8 +489,8 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                   <Button
                     size="sm"
                     className="h-7 text-xs gap-1.5"
-                    disabled={!replyText.trim()}
-                    onClick={() => handleAddComment(replyText, comment.id)}
+                    disabled={!localReplyText.trim()}
+                    onClick={() => handleAddComment(localReplyText, comment.id)}
                   >
                     <Send className="h-3 w-3" />
                     Reply

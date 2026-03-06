@@ -57,7 +57,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
                 </span>
               ))}
               {blog.tags.length > 2 && (
-                <span className="mr-2 outline rounded-full px-2 py-1  dark:bg-card bg-gray-200 text-xs">
+                <span className="mr-2 mt-2 outline rounded-full px-2 py-1 dark:bg-card bg-gray-200 text-xs">
                   +{blog.tags.length - 2} more
                 </span>
               )}

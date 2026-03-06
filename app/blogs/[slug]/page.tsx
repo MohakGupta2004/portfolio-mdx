@@ -3,7 +3,11 @@ import { LikeButton } from "@/components/like-button";
 import ReactLenis from "lenis/react";
 
 export function generateStaticParams() {
-  return [{ slug: "hello-world" }, { slug: "monolithic-and-microservices" }];
+  return [
+    { slug: "hello-world" },
+    { slug: "monolithic-and-microservices" },
+    { slug: "api-gateways" },
+  ];
 }
 
 export default async function Page({

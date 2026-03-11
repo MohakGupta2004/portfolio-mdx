@@ -28,6 +28,7 @@ const Blog = () => {
       category: "system-design",
       readTime: "10 min",
       slug: "api-gateways",
+      image: "/images/blogs/api-gateways.jpg",
       tags: ["system-design", "architecture", "microservices", "api-gateway"],
     },
     {

@@ -24,9 +24,9 @@ const Blog = () => {
       title: "API Gateways: The Unsung Heroes of Microservices",
       description:
         "A deep dive into the role of API gateways in microservices architecture, exploring their benefits, challenges, and best practices for implementation.",
-      date: "March 02, 2026",
+      date: "March 11, 2026",
       category: "system-design",
-      readTime: "10 min",
+      readTime: "20 min",
       slug: "api-gateways",
       image: "/images/blogs/api-gateways.jpg",
       tags: ["system-design", "architecture", "microservices", "api-gateway"],

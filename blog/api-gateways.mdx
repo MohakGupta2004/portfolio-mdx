@@ -1,1 +1,293 @@
-# API Gatways
+# Understanding API Gateways, API Composition, and Load Balancing
+
+Modern applications are often built using many small services instead of one large program. Each service handles a specific task.
+
+For example:
+
+- A **User Service** manages user accounts.
+- An **Order Service** manages orders.
+- A **Payment Service** handles payments.
+
+When an application has many services working together, we need a way to **manage how requests move between them**. This is where things like **API Gateways, API Composition, Service Discovery, and Load Balancers** become useful.
+
+Let’s understand these ideas in a very simple way.
+
+---
+
+## What is an API Gateway?
+
+Imagine walking into a **hospital**.
+
+You probably don’t know where the lab, pharmacy, or billing department is. So the first thing you do is go to the **reception desk**. The receptionist listens to your problem and sends you to the correct department.
+
+An **API Gateway works the same way** in software systems.
+
+When a user sends a request to an application, the request first goes to the **API Gateway**. The gateway understands what the user wants and then sends the request to the correct service.
+
+For example:
+
+- Login requests go to the **User Service**
+- Order requests go to the **Order Service**
+- Payment requests go to the **Payment Service**
+
+So the API Gateway simply acts like a **reception desk that directs requests to the correct service**.
+
+![API Gateway Routing Requests to Services](/images/internal/api-gateways/what-is-api-gateway.png)
+
+---
+
+## API Composition
+
+Sometimes a user request needs **information from multiple services**.
+
+For example, when a user places an order, the system might need to:
+
+- Check the **user details**
+- Create the **order**
+- Process the **payment**
+
+Without API composition, the client application would need to **contact all these services separately**, which makes things complicated.
+
+API Composition solves this problem.
+
+Instead of the client calling many services, the **API Gateway collects information from different services, combines it, and sends a single response back to the client**.
+
+This makes things much simpler for the client.
+
+![Combining Data from Multiple Services](/images/internal/api-gateways/api-composition.png)
+
+---
+
+## Types of API Composition
+
+There are two ways services can be combined.
+
+### Sequential Composition
+
+In this method, services are called **one after another**.
+
+Example:
+
+1. Check user details
+2. Create the order
+3. Process the payment
+
+Each step waits until the previous step finishes.
+
+#### Advantages
+
+- Easier to understand and manage
+- Works well when one service depends on another
+
+#### Disadvantages
+
+- Slower because every step waits for the previous one
+
+---
+
+### Parallel Composition
+
+In this method, the gateway calls **multiple services at the same time**.
+
+For example, the system may request:
+
+- user profile
+- order history
+- product recommendations
+
+all at once.
+
+#### Advantages
+
+- Faster responses in many cases
+
+#### Disadvantages
+
+- Harder to manage errors
+- If one service fails, combining results becomes difficult
+- Debugging problems becomes more complicated
+
+---
+
+## Advantages of API Composition
+
+API composition provides several benefits.
+
+- The **client only sends one request** instead of many.
+- Applications become **simpler for frontend developers**.
+- The system can return **different responses for different devices**.
+
+For example:
+
+- Mobile apps might receive **less data**
+- Desktop apps might receive **more detailed data**
+
+![Client Directly Calling Multiple Services](/images/internal/api-gateways/client-calling.png)
+
+![Client Using API Gateway for Single Request](/images/internal/api-gateways/client-calling-api-gateway.png)
+
+---
+
+## Disadvantages of API Composition
+
+Although useful, API composition also has some challenges.
+
+- If **one service becomes slow**, the entire response becomes slow.
+- If **one service stops working**, the system may fail to produce the final result.
+- This means the system depends on **multiple services being available at the same time**.
+
+So while API composition simplifies things for users, it adds **more responsibility to the gateway system**.
+
+---
+
+# API Gateway and Authentication
+
+Another important role of an API Gateway is **authentication**.
+
+Before sending a request to any service, the gateway first checks whether the user is **allowed to access the system**. It usually does this by contacting an **Authentication Service**.
+
+If the user is verified, the request continues to the required service. If not, the request is rejected.
+
+This keeps the system secure and ensures that **authentication is handled in one central place**.
+
+![API Gateway Authenticating Users Before Requests](/images/internal/api-gateways/auth.png)
+
+Example flow:
+
+Client Request → API Gateway → Authentication Service
+
+If authenticated → Request forwarded to services
+If not authenticated → Request rejected
+
+---
+
+## API Gateway and Service Discovery
+
+In microservice systems, services may **start, stop, or move between servers**.
+
+Because of this, the API Gateway must always know **where each service is currently running**.
+
+This is handled by something called **Service Discovery**.
+
+Service discovery keeps track of:
+
+- Which services are running
+- Which services are down
+- The current location of each service
+
+Whenever the API Gateway needs to send a request, it asks the service discovery system where that service is located.
+
+This helps avoid sending requests to services that are **not available**.
+
+![Finding Available Services with Service Discovery](/images/internal/api-gateways/service-discovery.png)
+
+Example flow:
+
+Client Request → API Gateway
+API Gateway → asks Service Discovery
+Service Discovery → returns service location
+API Gateway → sends request to the correct service
+
+---
+
+# Load Balancers
+
+After the API Gateway decides **which service should handle a request**, another question appears:
+
+**Which server should handle the request?**
+
+In large systems, a service usually runs on **multiple servers** so it can handle many users at the same time.
+
+A **Load Balancer** helps distribute requests between these servers so that no single server becomes overloaded.
+
+For example:
+
+1. The API Gateway decides that the request should go to the **Payment Service**.
+2. The Load Balancer chooses **one server from many payment servers**.
+
+This keeps the system **fast and stable**.
+
+![Distributing Requests Across Multiple Servers](/images/internal/api-gateways/load-balancer.png)
+
+Example flow:
+
+Client Request → API Gateway
+API Gateway → identifies service
+Load Balancer → chooses one server
+Request → sent to that server
+
+In simple terms:
+
+- **API Gateway** decides which service is needed
+- **Load Balancer** decides which server should handle the request
+
+---
+
+# Scaling an API Gateway
+
+A common question is:
+
+**Is there only one API Gateway?**
+
+In small systems, there might be only one gateway. But as the number of users grows, one gateway may not be enough.
+
+To solve this, systems use **multiple regions and DNS routing**.
+
+---
+
+## Scaling with Regions
+
+Large systems divide their infrastructure into **different regions**.
+
+For example:
+
+- New York region
+- California region
+
+Each region contains the same setup:
+
+- API Gateway
+- Authentication Service
+- Service Discovery
+- Load Balancer
+- Microservices
+
+This allows each region to **handle traffic independently**.
+
+---
+
+### DNS-Based Traffic Distribution
+
+To decide **which region should receive a request**, systems use **DNS routing**.
+
+Instead of pointing a domain like:
+
+`api.domain.com`
+
+to a single server, DNS can point it to **multiple IP addresses**, each belonging to a different region.
+
+When a user sends a request, DNS sends the request to **one of these regions**.
+
+This spreads traffic across multiple gateways.
+
+---
+
+### Final Request Flow
+
+The full request journey looks like this:
+
+1. DNS decides which region should handle the request
+2. The request reaches the API Gateway in that region
+3. The gateway checks authentication and routes the request
+4. The Load Balancer selects a server
+5. The request reaches the correct microservice
+
+![Scaling API Gateways with DNS and Regional Infrastructure](/images/internal/api-gateways/how-api-gateway-scals.png)
+
+---
+
+# Final Thoughts
+
+API Gateways are an important part of modern applications. They act as the **main entry point** for requests and help manage communication between different services.
+
+When combined with **API composition, authentication, service discovery, load balancing, and regional scaling**, they allow applications to **handle large numbers of users while staying reliable and organized**.

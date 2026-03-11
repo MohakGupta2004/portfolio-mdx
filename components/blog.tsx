@@ -21,15 +21,14 @@ const Blog = () => {
   const blogs: BlogPost[] = [
     {
       id: 1,
-      title: "Getting Started",
+      title: "API Gateways: The Unsung Heroes of Microservices",
       description:
-        "Starting to record my learnings, thoughts and ideas in the form of blogs. Stay tuned for more content on web development, AI, and much more.",
-      date: "January 15, 2026",
-      category: "motivation",
-      readTime: "1 min read",
-      slug: "hello-world",
-      tags: ["Motivation", "Personal"],
-      image: "/images/blogs/hello-world.jpg",
+        "A deep dive into the role of API gateways in microservices architecture, exploring their benefits, challenges, and best practices for implementation.",
+      date: "March 02, 2026",
+      category: "system-design",
+      readTime: "10 min",
+      slug: "api-gateways",
+      tags: ["system-design", "architecture", "microservices", "api-gateway"],
     },
     {
       id: 2,

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Blogs = () => {
   const blogs = [
-    {
+{
       id: 1,
       title: "Hello World",
       description:
@@ -44,6 +44,16 @@ const Blogs = () => {
       readTime: "20 min",
       slug: "api-gateways",
       tags: ["system-design", "architecture", "microservices", "api-gateway"],
+    },
+    {
+      id: 4,
+      title: "sliding-window-1",
+      description: "Sliding window is a data structures and algorithms pattern and I'll explain how to approach it.",
+      date: "March 14, 2026",
+      category: "datastructures-and-algorithms",
+      readTime: "5 min",
+      slug: "sliding-window-1",
+      tags: ["dsa","sliding-window","cpp","cp","problem-solving","leetcode"],
     },
   ];
 

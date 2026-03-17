@@ -4,10 +4,10 @@ import ReactLenis from "lenis/react";
 
 export function generateStaticParams() {
   return [
-{ slug: "hello-world" },
+    { slug: "hello-world" },
     { slug: "monolithic-and-microservices" },
     { slug: "api-gateways" },
-    { slug: "sliding-window-1" },
+    // { slug: "sliding-window-1" },
   ];
 }
 

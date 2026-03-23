@@ -8,13 +8,13 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const experiences = [
   {
-    src: "/realtygenielogo.png",
-    alt: "realty",
+    src: "/valstrand.jpg",
+    alt: "valstrand",
     startingDate: "December 2025",
     endingDate: "Present",
     location: "Canada (remote)",
-    jobRole: "Full Stack Developer",
-    companyName: "RealtyGenie",
+    jobRole: "SWE",
+    companyName: "Valstrand",
     tech: [
       {
         src: "/nextjs.svg",

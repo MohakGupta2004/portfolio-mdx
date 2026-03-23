@@ -44,7 +44,9 @@ const Index = () => {
             <h1 className="font-grotesk text-3xl sm:text-4xl font-bold text-foreground">
               Mohak Gupta
             </h1>
-            <p className="text-lg text-muted-foreground">Full Stack Developer</p>
+            <p className="text-lg text-muted-foreground">
+              Full Stack Developer
+            </p>
 
             {/* Status Tags */}
             <div className="flex flex-wrap items-center gap-3 mt-3 text-sm">
@@ -54,7 +56,7 @@ const Index = () => {
               </span>
               <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                 <Briefcase className="w-3.5 h-3.5" />
-                <span className="text-primary">RealtyGenie</span>
+                <span className="text-primary">Valstrand</span>
               </span>
             </div>
           </div>

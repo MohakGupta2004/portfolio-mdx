@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Blogs = () => {
   const blogs = [
-    {
+{
       id: 1,
       title: "Hello World",
       description:
@@ -55,6 +55,16 @@ const Blogs = () => {
     //   slug: "sliding-window-1",
     //   tags: ["dsa","sliding-window","cpp","cp","problem-solving","leetcode"],
     // },
+    {
+      id: 5,
+      title: "Load Balancing Algorithms",
+      description: "Here we are discussing various algortims of Load Balancers and LB types.",
+      date: "March 18, 2026",
+      category: "system design",
+      readTime: "5 min",
+      slug: "load-balancing-algorithms",
+      tags: ["system-design","high-level-design"],
+    },
   ];
 
   return (

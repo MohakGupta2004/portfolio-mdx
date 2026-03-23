@@ -1,0 +1,260 @@
+# Load Balancing, Explained Like Managing a Restaurant
+
+When an application grows, a single server cannot handle all users. So we create multiple instances of the same service.
+
+Now the key question:
+**Which instance should handle a new request?**
+
+This is where a **Load Balancer (LB)** comes in.
+
+Think of it like a **restaurant manager** assigning customers to different tables so that no waiter is overloaded and service stays smooth.
+
+![load balancer](/images/internal/load-balancing-algorithms/load-balancer.png)
+
+## Types of Load Balancers
+
+The difference lies in _how much of the request they understand_.
+
+### 1. L4 Load Balancer (Transport Layer)
+
+- Works at connection level
+- Uses IP address and port
+- Operates over TCP/UDP
+- Does not inspect request content
+
+**Analogy:**
+A security guard who only checks your ID and lets you pass, without asking your purpose.
+
+---
+
+### 2. L7 Load Balancer (Application Layer)
+
+- Works at request level
+- Understands HTTP/HTTPS/WebSockets
+- Can inspect headers, cookies, paths, body
+- Routes based on content
+
+**Analogy:**
+A receptionist who asks why you’re here and sends you to the correct department.
+
+---
+
+## L4 Load Balancer Modes
+
+### 1. Passthrough Mode (Most Common)
+
+- Does not break the TCP connection
+- Simply forwards packets to backend
+
+**Workflow:**
+
+```
+Client → LB → Server
+Server → LB → Client
+```
+
+The client thinks it is directly talking to the server.
+
+**Used when:** performance and speed are more important than control.
+
+---
+
+### 2. Proxy Mode
+
+- Breaks the client connection
+- Creates a new connection to backend
+- More control over traffic
+
+**Analogy:**
+A middleman who talks to both sides separately.
+
+**Used when:** you need control, logging, filtering, or security rules.
+
+---
+
+# Load Balancing Algorithms
+
+Now comes the core logic:
+**How does the load balancer decide where to send a request?**
+
+These algorithms fall into two categories:
+
+- **Static** → fixed rules
+- **Dynamic** → real-time decisions
+
+---
+
+## 1. Round Robin
+
+Requests are distributed sequentially across servers.
+
+**Example:**
+
+```
+Request 1 → A
+Request 2 → B
+Request 3 → C
+Request 4 → A
+```
+
+**Use case:**
+Simple systems where all servers are equal.
+
+**Limitation:**
+Does not consider server capacity or current load.
+
+```
+Incoming Requests
+      ↓
+A ← B ← C ← A ← B ← C
+(Equal distribution)
+```
+
+![round robin](/images/internal/load-balancing-algorithms/round-robin.png)
+
+---
+
+## 2. Weighted Round Robin
+
+Each server is assigned a weight based on capacity.
+
+**Example:**
+
+- A (weight 3), B (weight 1)
+
+```
+A → A → A → B → repeat
+```
+
+**Use case:**
+When servers have different power.
+
+**Limitation:**
+Still ignores actual workload. A heavy request may hit a weaker server.
+
+```
+A (High capacity) → more requests
+B (Low capacity)  → fewer requests
+But request complexity is ignored
+```
+
+![weighted round robin](/images/internal/load-balancing-algorithms/weighted-round-robin.png)
+
+---
+
+## 3. IP Hash
+
+Maps a user’s IP to a specific server using hashing.
+
+**Use case:**
+Session persistence (same user always hits same server)
+
+**Analogy:**
+A bodyguard checks your ID and always sends you to the same room.
+
+```
+User IP → Hash Function → Server
+Same IP → Same Server
+```
+
+## ![ip hash](/images/internal/load-balancing-algorithms/ip-hash.png)
+
+## 4. Least Connections
+
+Routes request to server with fewest active connections.
+
+**Example:**
+
+- A → 10 connections
+- B → 3 connections
+
+New request → **B**
+
+**Use case:**
+Dynamic traffic environments.
+
+**Limitation:**
+Does not consider server strength.
+
+```
+Server A → 10 active
+Server B → 3 active  ← chosen
+```
+
+## ![least conn](/images/internal/load-balancing-algorithms/least-conn.png)
+
+---
+
+## 5. Weighted Least Connections
+
+Considers both load and capacity.
+
+**Formula:**
+
+```
+Connections / Weight
+```
+
+**Example:**
+
+- Strong server → 2 connections, weight 10 → 0.2
+- Weak server → 1 connection, weight 1 → 1
+
+Request goes to **strong server**
+
+**Use case:**
+Real-world systems with uneven infrastructure.
+
+```
+Server A → 2/10 = 0.2  ← chosen
+Server B → 1/1  = 1
+```
+
+## ![weighted least conn](/images/internal/load-balancing-algorithms/weighted-least-conn.png)
+
+---
+
+## 6. Least Response Time
+
+Chooses the fastest server based on response speed.
+
+**Metric used:**
+TTFB (Time To First Byte)
+
+**Formula:**
+
+```
+TTFB × Active Connections
+```
+
+**Example:**
+
+- A → 3 × 2 = 6
+- B → 2 × 0 = 0
+
+Request goes to **B**
+
+If equal → fallback to Round Robin
+
+**Use case:**
+Performance-critical systems.
+
+(diagram)
+
+```
+Server A → slower (6)
+Server B → faster (0) ← chosen
+```
+
+---
+
+## Conclusion
+
+Load balancing is the practice of **distributing traffic intelligently to keep systems fast, stable, and available**.
+
+L4 load balancers focus on speed and simplicity, while L7 load balancers provide deeper control and smarter routing. Similarly, static algorithms are easy to implement, but dynamic algorithms adapt better to real-world traffic.
+
+There is no one-size-fits-all solution. The right choice depends on system scale, traffic patterns, and performance needs. In practice, modern systems combine multiple strategies to achieve both efficiency and reliability.
+
+At its core, a good load balancer works like a skilled manager —
+**it understands the situation, distributes work wisely, and ensures no single component becomes a bottleneck.**

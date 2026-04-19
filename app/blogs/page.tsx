@@ -65,6 +65,16 @@ const Blogs = () => {
       slug: "load-balancing-algorithms",
       tags: ["system-design","high-level-design"],
     },
+    {
+      id: 6,
+      title: "Proxy vs Reverse proxy",
+      description: "Here is a detailed explanation about proxy and reverse proxy with vpn. Why we need reverse proxy and all of these.",
+      date: "March 25, 2026",
+      category: "system-design",
+      readTime: "5 min",
+      slug: "proxy-vs-reverse-proxy",
+      tags: ["system-design","networking","reverse-proxy"],
+    },
   ];
 
   return (

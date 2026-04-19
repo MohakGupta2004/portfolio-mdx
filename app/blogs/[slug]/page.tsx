@@ -9,6 +9,7 @@ export function generateStaticParams() {
     { slug: "api-gateways" },
     // { slug: "sliding-window-1" },
     { slug: "load-balancing-algorithms" },
+    { slug: "proxy-vs-reverse-proxy" },
   ];
 }
 

@@ -75,6 +75,16 @@ const Blogs = () => {
       slug: "proxy-vs-reverse-proxy",
       tags: ["system-design","networking","reverse-proxy"],
     },
+    {
+      id: 7,
+      title: "Rust for beginners ",
+      description: "This is the description of me learning rust through my curiosity. ",
+      date: "April 19, 2026",
+      category: "programming language, solana, smart contract",
+      readTime: "5 min",
+      slug: "rust-for-beginners",
+      tags: ["programming language","solana","program","smart contract","ethereum","low level language"],
+    },
   ];
 
   return (
